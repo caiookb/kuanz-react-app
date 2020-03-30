@@ -1,3 +1,3 @@
 import * as EntryController from './Entry';
-
-export {EntryController};
+import * as SessionController from './Session';
+export {EntryController, SessionController};
