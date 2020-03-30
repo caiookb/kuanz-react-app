@@ -19,6 +19,7 @@ const Main = props => {
 
   return (
     <WrapperView style={styles.container}>
+      <Nav />
       <Switch>
         <Route exact path="/" render={() => <Redirect to={screen} />} />
         <Route path={sections[0]} component={Login} />
