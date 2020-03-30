@@ -1,7 +1,7 @@
 const serverErr = res => {
   switch (res.status) {
     case 400:
-      return res.json().then(response => Promise.reject(Error(response.error)));
+      return res.json().then(response => response);
     case 500:
       return Promise.reject(Error('Ocorreu um erro no servidor!'));
     default:

@@ -7,15 +7,14 @@ import {Nav} from '../../navigation';
 import Login from '../../entry/login/Login';
 import SignUpInfo from '../../entry/pipeline/signUpInfo/signUpInfo';
 import SignUp from '../../entry/signup/SignUp';
+import GoalsFlow from '../../entry/pipeline/goalsFlow/GoalsFlow';
+
 import styles from './styles';
 
 const Main = props => {
   const {screen} = props;
   const {sections} = Routes;
   const WrapperView = Platform.OS === 'ios' ? SafeAreaView : View;
-
-  console.log('screen', screen);
-  console.log('sections', sections);
 
   return (
     <WrapperView style={styles.container}>
@@ -25,6 +24,7 @@ const Main = props => {
         <Route path={sections[0]} component={Login} />
         <Route path={sections[1]} component={SignUpInfo} />
         <Route path={sections[2]} component={SignUp} />
+        <Route path={sections[3]} component={GoalsFlow} />
       </Switch>
     </WrapperView>
   );

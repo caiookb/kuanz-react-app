@@ -1,3 +1,3 @@
 export const Routes = {
-  sections: ['/entry', '/signupinfo', ['/signup']],
+  sections: ['/entry', '/signupinfo', '/signup', '/goalsFlow'],
 };
