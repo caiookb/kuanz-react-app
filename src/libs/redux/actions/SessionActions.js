@@ -1,6 +1,6 @@
 import {SessionTypes} from '../types';
 
-export const updateSession = session => ({
+export const updateSession = (session): Action => ({
   type: SessionTypes.UPDATE_SESSION,
   payload: session,
 });

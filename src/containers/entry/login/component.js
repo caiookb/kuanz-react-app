@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, TextInput, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import CustomButton from '../../../common-components/buttons/buttons';
 import {InteractionActions} from '../../../libs/redux/actions';
-
+import {TextInput} from '../../../common-components';
 import styles from './styles';
 import {Colors} from '../../../assets/colors';
 
@@ -22,48 +22,71 @@ class LoginComponent extends Component {
     setModal('ChangePasswordModal', data);
   };
 
+  onChangeInput = (text, type) => {
+    switch (type) {
+      case 'email':
+        this.setState({email: text});
+        break;
+      case 'password':
+        this.setState({password: text});
+        break;
+    }
+  };
+
   componentDidMount = () => {
     const {history} = this.props;
-    console.log('hisotryyyy', history);
   };
 
   render() {
-    const {email, password, modalVisible} = this.state;
+    const {email, password} = this.state;
     const {history} = this.props;
     return (
-      <View style={styles.container}>
-        <View style={styles.logoView}></View>
-        <View style={styles.formView}>
-          <View style={styles.inputView}>
-            <Text style={styles.inputTitle}>Email</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={text => this.setState({email: text})}
-              value={email}
-            />
+      <React.Fragment>
+        <View style={styles.container}>
+          <View style={styles.logoView} />
+          <View style={styles.formView}>
+            <View style={styles.inputView}>
+              <TextInput
+                value={email}
+                type={'custom'}
+                label={'Email'}
+                maskOptions={{
+                  mask: '***************************',
+                }}
+                maskInputProps={{
+                  placeholder: '',
+                  onChangeText: text => this.onChangeInput(text, 'email'),
+                }}
+              />
+            </View>
+            <View style={styles.inputView}>
+              <TextInput
+                value={password}
+                type={'custom'}
+                label={'Senha'}
+                maskOptions={{
+                  mask: '************',
+                }}
+                maskInputProps={{
+                  placeholder: '',
+                  onChangeText: text => this.onChangeInput(text, 'password'),
+                }}
+              />
+            </View>
+            <View style={styles.changePassword}>
+              <Text
+                style={styles.changePasswordText}
+                onPress={this.toggleModal}>
+                Esqueceu sua senha?
+              </Text>
+            </View>
           </View>
-          <View style={styles.inputView}>
-            <Text style={styles.inputTitle}>Senha</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={text => this.setState({password: text})}
-              value={password}
-              secureTextEntry={true}
-            />
-            <Text style={styles.inputForgotPassword} onPress={this.toggleModal}>
-              Esqueceu sua senha?
-            </Text>
+
+          <View style={styles.buttonsView}>
+            <CustomButton title={'ENTRAR'} color={Colors.secondary} />
           </View>
         </View>
-        <View style={styles.buttonsView}>
-          <CustomButton title={'LOGIN'} color={Colors.secondary} />
-          <CustomButton
-            title={'CADASTRE-SE'}
-            color={Colors.third}
-            onPress={() => history.push('/signupinfo')}
-          />
-        </View>
-      </View>
+      </React.Fragment>
     );
   }
 }
@@ -72,4 +95,7 @@ const mapDispatchToProps = dispatch => ({
   setModal: (id, func) => dispatch(InteractionActions.setInfoModal(id, func)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginComponent);
+export default connect(
+  null,
+  mapDispatchToProps,
+)(LoginComponent);

@@ -9,7 +9,6 @@ class Modals extends PureComponent {
   render = () => {
     const {modal, close} = this.props;
     const {type, detail, title, data} = modal || {};
-    console.log('type', type);
     switch (type) {
       case 'info':
         return <Info infoId={detail} infoData={data} />;

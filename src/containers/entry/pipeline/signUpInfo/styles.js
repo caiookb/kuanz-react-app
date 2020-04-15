@@ -3,15 +3,15 @@ import {Colors} from '../../../../assets/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.secondary,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   nav: {
     width: '100%',
     height: 80,
-    backgroundColor: '#054367',
+    backgroundColor: Colors.third,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -23,20 +23,24 @@ export default StyleSheet.create({
   },
   content: {
     width: '95%',
-    alignItems: 'flex-start',
+    flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  fixedBottom: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    backgroundColor: 'black',
+    width: '100%',
   },
   card: {
-    height: 150,
-    marginTop: 35,
+    height: 120,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
     width: '99%',
     borderRadius: 12,
-    backgroundColor: Colors.fourth,
+    backgroundColor: Colors.third,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -57,7 +61,6 @@ export default StyleSheet.create({
     height: '70%',
     alignSelf: 'center',
   },
-
   cardInfo: {
     width: '70%',
     flexDirection: 'column',
@@ -70,10 +73,5 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     color: 'white',
-  },
-  fixedBottom: {
-    position: 'absolute',
-    width: '100%',
-    bottom: 0,
   },
 });

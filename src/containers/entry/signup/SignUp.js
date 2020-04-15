@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  TextInput,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -11,19 +10,20 @@ import {
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import CustomButton from '../../../common-components/buttons/buttons';
+import {TextInput} from '../../../common-components';
+
 import Spinner from '../../../common-components/spinner/Spinner';
 import {Colors} from '../../../assets/colors';
 import * as AuthController from './controller';
 import styles from './styles';
-import {Auth} from '../../../libs/server';
 
 class SignUp extends Component {
   state = {
-    name: 'Teofilo',
-    last_name: 'Ribeiro',
-    email: 'teo12@mail.com',
-    password: '123',
-    confirmPassword: '123',
+    name: undefined,
+    last_name: undefined,
+    email: undefined,
+    password: undefined,
+    confirmPassword: undefined,
     error: undefined,
     formValid: false,
     fetching: false,
@@ -33,7 +33,27 @@ class SignUp extends Component {
     const {history} = this.props;
   };
 
-  isFormValid = () => {
+  onChangeInput = (text, type) => {
+    switch (type) {
+      case 'name':
+        this.setState({name: text});
+        break;
+      case 'last_name':
+        this.setState({last_name: text});
+        break;
+      case 'email':
+        this.setState({email: text});
+        break;
+      case 'password':
+        this.setState({password: text});
+        break;
+      case 'confirmPassword':
+        this.setState({confirmPassword: text});
+        break;
+    }
+  };
+
+  isFormValid = async () => {
     const {name, last_name, email, password, confirmPassword} = this.state;
     if (!name && !last_name && !email && !password && !confirmPassword) {
       this.setState({error: 'Preencha todos os campos!'});
@@ -57,25 +77,19 @@ class SignUp extends Component {
 
   sendForm = async () => {
     const {history, signUp} = this.props;
+    console.log('Chamando SENDFORM()');
     const user = await this.isFormValid();
+    console.log('user criado pelo isFormValid()', user);
     const req = await signUp(user);
+    console.log('Requisição feita pelo signUp()', req);
+
     if (!req.error) {
       history.push('/goalsFlow');
+    } else {
+      setTimeout(() => {
+        this.setState({error: req.error, fetching: false});
+      }, 2000);
     }
-    // const request = await AuthController.signUp(user);
-    // if (!request.error) {
-    //   this.setState({error: undefined});
-    //   const {token} = request;
-    //   await AsyncStorage.setItem('userToken', token);
-    //   setTimeout(() => {
-    //     this.setState({fetching: false});
-    //     history.push('/goalsFlow');
-    //   }, 2000);
-    // } else {
-    //   setTimeout(() => {
-    //     this.setState({error: request.error, fetching: false});
-    //   }, 2000);
-    // }
   };
 
   render() {
@@ -90,7 +104,7 @@ class SignUp extends Component {
     } = this.state;
     return (
       <View style={styles.page}>
-        <View style={styles.nav}></View>
+        <View style={styles.nav} />
         {error ? (
           <View style={styles.errorView}>
             <Text style={styles.errorMessage}>{error}</Text>
@@ -105,45 +119,74 @@ class SignUp extends Component {
               style={styles.content}
               keyboardShouldPersistTaps="handled">
               <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Nome</Text>
                 <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({name: text})}
                   value={name}
+                  type={'custom'}
+                  label={'Nome'}
+                  maskOptions={{
+                    mask: '***************************',
+                  }}
+                  maskInputProps={{
+                    placeholder: '',
+                    onChangeText: text => this.onChangeInput(text, 'name'),
+                  }}
                 />
               </View>
               <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Sobrenome</Text>
                 <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({last_name: text})}
                   value={last_name}
+                  type={'custom'}
+                  label={'Sobrenome'}
+                  maskOptions={{
+                    mask: '***************************',
+                  }}
+                  maskInputProps={{
+                    placeholder: '',
+                    onChangeText: text => this.onChangeInput(text, 'last_name'),
+                  }}
                 />
               </View>
               <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Email</Text>
                 <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({email: text})}
                   value={email}
+                  type={'custom'}
+                  label={'Email'}
+                  maskOptions={{
+                    mask: '***************************',
+                  }}
+                  maskInputProps={{
+                    placeholder: '',
+                    onChangeText: text => this.onChangeInput(text, 'email'),
+                  }}
                 />
               </View>
               <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Senha</Text>
                 <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({password: text})}
                   value={password}
-                  secureTextEntry={true}
+                  type={'custom'}
+                  label={'Senha'}
+                  maskOptions={{
+                    mask: '***************************',
+                  }}
+                  maskInputProps={{
+                    placeholder: '',
+                    onChangeText: text => this.onChangeInput(text, 'password'),
+                  }}
                 />
               </View>
               <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Confirme sua senha</Text>
                 <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({confirmPassword: text})}
                   value={confirmPassword}
-                  secureTextEntry={true}
+                  type={'custom'}
+                  label={'Confirme a senha'}
+                  maskOptions={{
+                    mask: '***************************',
+                  }}
+                  maskInputProps={{
+                    placeholder: '',
+                    onChangeText: text =>
+                      this.onChangeInput(text, 'confirmPassword'),
+                  }}
                 />
               </View>
             </KeyboardAvoidingView>
@@ -156,7 +199,7 @@ class SignUp extends Component {
         <View style={styles.fixedBottom}>
           <CustomButton
             title={'CONFIMAR'}
-            color={Colors.secondary}
+            color={Colors.third}
             onPress={() => this.sendForm()}
           />
         </View>
@@ -169,4 +212,9 @@ const mapDispatchToProps = dispatch => ({
   signUp: data => AuthController.signUp(dispatch, data),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(SignUp));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(SignUp),
+);

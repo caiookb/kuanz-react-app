@@ -1,29 +1,37 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
-import {NativeRouter} from 'react-router-native';
+import React, { Component } from 'react';
+import { NativeRouter } from 'react-router-native';
 import AppContainer from './AppContainer';
+import * as EntryController from './src/libs/controllers/Entry'
+
 
 class App extends Component {
+
   state = {
+    isLogged: false,
     loading: true,
     status: '/entry',
     error: false,
   };
 
-  redirectToEntry = session => {};
+  componentDidMount = async (props) => {
+    this.setState({ status: await this.handleLogin() })
+  };
 
-  componentDidMount = () => {};
+  componentDidUpdate = () => {
+    const { status } = this.state;
+    console.log('status updated', status)
+  }
+  handleLogin = async () => {
+    const token = await EntryController.getUserToken();
+    if (token) {
+      this.setState({ isLogged: true });
+    }
+    return EntryController.getEntryRoute();
+  }
 
   render = () => {
-    const {loading, status, error} = this.state;
-
+    const { status } = this.state;
+    console.log('status', status)
     return (
       <NativeRouter>
         <AppContainer initScreen={status} />

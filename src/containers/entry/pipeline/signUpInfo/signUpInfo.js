@@ -37,7 +37,6 @@ class SignUpInfo extends Component {
   fadeIn = () => {
     const {cards} = this.state;
     cards.forEach(card => {
-      console.log('card no for', card);
       Animated.timing(card.opacity, {
         toValue: 1,
         duration: 300,
@@ -54,7 +53,7 @@ class SignUpInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.nav}></View>
+        <View style={styles.nav} />
         <View style={styles.content}>
           <Animated.View
             onLoad={this.fadeIn()}
@@ -64,8 +63,7 @@ class SignUpInfo extends Component {
             </View>
             <View style={styles.cardInfo}>
               <Text style={styles.cardText}>
-                Seu assistente enviará alertas para te deixar ciente da
-                situação!
+                Seu assistente enviará alertas para te deixar ciente da situação
               </Text>
             </View>
           </Animated.View>
@@ -78,7 +76,7 @@ class SignUpInfo extends Component {
             <View style={styles.cardInfo}>
               <Text style={styles.cardText}>
                 Você terá acesso a suas estatísticas para melhor visualização da
-                sua renda!
+                sua renda
               </Text>
             </View>
           </Animated.View>
@@ -90,7 +88,7 @@ class SignUpInfo extends Component {
             </View>
             <View style={styles.cardInfo}>
               <Text style={styles.cardText}>
-                Tudo vai estar criptografado para sua segurança e conforto!
+                Tudo vai estar criptografado para sua segurança e conforto
               </Text>
             </View>
           </Animated.View>
@@ -99,7 +97,7 @@ class SignUpInfo extends Component {
         <View style={styles.fixedBottom}>
           <CustomButton
             title={'VAMOS LÁ'}
-            color={Colors.secondary}
+            color={Colors.third}
             onPress={() => history.push('/signUp')}
           />
         </View>

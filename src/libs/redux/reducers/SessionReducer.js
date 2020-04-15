@@ -7,6 +7,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const {type, payload} = action;
+  console.log('payloaddddddd', payload);
 
   switch (type) {
     case SessionTypes.UPDATE_SESSION:
@@ -22,5 +23,7 @@ export default (state = initialState, action) => {
           ...payload.data,
         },
       };
+    default:
+      return state;
   }
 };

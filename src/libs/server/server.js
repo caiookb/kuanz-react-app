@@ -3,16 +3,14 @@ const serverErr = res => {
     case 400:
       return res.json().then(response => response);
     case 500:
-      return Promise.reject(Error('Ocorreu um erro no servidor!'));
+      return res.json().then(response => response);
     default:
-      return Promise.reject(
-        Error('Algo deu errado! Tente novamente mais tarde'),
-      );
+      return res.json().then(response => response);
   }
 };
 
 const domain = {
-  LOCAL: 'http://192.168.0.103:5000/',
+  LOCAL: 'https://guarded-peak-67914.herokuapp.com/',
 };
 
 const urlPrefix = domain.LOCAL;
@@ -22,16 +20,15 @@ const url = path => {
 };
 
 export default async config => {
-  const {method, path, body, authToken} = config;
+  const {method, path, body, auth} = config;
   const opt = {
     headers: {
-      Auth: authToken,
+      auth: auth,
       'Content-Type': 'application/json',
     },
     method,
     body: body && JSON.stringify(body),
   };
-
   return fetch(url(path), opt)
     .then(res => (res.ok ? res.json() : serverErr(res)))
     .catch(err => Promise.reject(err));
