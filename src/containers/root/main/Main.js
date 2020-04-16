@@ -1,8 +1,8 @@
 import React from 'react';
-import { Platform, SafeAreaView, View } from 'react-native';
-import { Redirect, Route, Switch } from 'react-router-native';
-import { Routes } from '../../../assets/routes';
-import { Nav } from '../../navigation';
+import {Platform, SafeAreaView, View} from 'react-native';
+import {Redirect, Route, Switch} from 'react-router-native';
+import {Routes} from '../../../assets/routes';
+import {Nav} from '../../navigation';
 
 import Login from '../../entry/login/Login';
 import EntryComponent from '../../entry/Entry';
@@ -14,9 +14,10 @@ import Incomes from '../../Incomes/Incomes';
 import styles from './styles';
 
 const Main = props => {
-  const { screen } = props;
-  const { sections } = Routes;
-  console.log('routes', Routes)
+  const {screen} = props;
+  const {sections} = Routes;
+  console.log('screen', screen);
+  console.log('routes', sections);
   const WrapperView = Platform.OS === 'ios' ? SafeAreaView : View;
   return (
     <WrapperView style={styles.container}>

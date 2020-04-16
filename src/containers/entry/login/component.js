@@ -83,7 +83,11 @@ class LoginComponent extends Component {
           </View>
 
           <View style={styles.buttonsView}>
-            <CustomButton title={'ENTRAR'} color={Colors.secondary} />
+            <CustomButton
+              title={'ENTRAR'}
+              color={Colors.secondary}
+              onPress={this.sendForm}
+            />
           </View>
         </View>
       </React.Fragment>

@@ -31,7 +31,9 @@ class Dashboard extends Component {
   };
 
   logout = async () => {
+    const {history} = this.props;
     await AsyncStorage.removeItem('userToken');
+    history.replace('/entry');
   };
 
   render() {
@@ -82,4 +84,9 @@ const mapDispatchToProps = dispatch => ({
   getGoals: () => GoalsController.listGoal(dispatch),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(Dashboard));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(Dashboard),
+);

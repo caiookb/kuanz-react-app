@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
 import CustomButton from '../../common-components/buttons/buttons';
 import styles from './styles';
-import { Colors } from '../../assets/colors';
+import {Colors} from '../../assets/colors';
 
 class EntryComponent extends Component {
   state = {};
 
   render() {
-    const { history } = this.props;
+    const {history} = this.props;
     return (
       <React.Fragment>
         <View style={styles.container}>

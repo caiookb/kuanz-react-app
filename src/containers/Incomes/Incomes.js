@@ -71,7 +71,7 @@ class SignUp extends Component {
     } = this.state;
     return (
       <View style={styles.page}>
-        <View style={styles.nav}></View>
+        <View style={styles.nav} />
         {error ? (
           <View style={styles.errorView}>
             <Text style={styles.errorMessage}>{error}</Text>
@@ -86,7 +86,7 @@ class SignUp extends Component {
               style={styles.content}
               keyboardShouldPersistTaps="handled">
               <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Titulo</Text>
+                <Text style={styles.inputTitle}>Tituslo</Text>
                 <TextInput
                   style={styles.input}
                   onChangeText={text => this.setState({name: text})}
@@ -150,4 +150,9 @@ const mapDispatchToProps = dispatch => ({
   createIncome: data => IncomeController.createIncome(dispatch, data),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(SignUp));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(SignUp),
+);
