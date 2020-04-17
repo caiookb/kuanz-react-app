@@ -105,7 +105,7 @@ class SignUp extends Component {
           {!fetching ? (
             <KeyboardAvoidingView
               enabled
-              behavior={'height'}
+              behavior={'padding'}
               style={styles.content}
               keyboardShouldPersistTaps="handled">
               <View style={styles.inputView}>
