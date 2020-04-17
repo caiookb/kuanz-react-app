@@ -24,4 +24,15 @@ export default StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
+  errorView: {
+    opacity: 0.9,
+    backgroundColor: Colors.error,
+    height: 50,
+  },
+  errorText: {
+    color: 'white',
+    textAlign: 'center',
+    paddingVertical: 10,
+    fontSize: 20,
+  },
 });

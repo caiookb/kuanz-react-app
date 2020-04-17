@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text} from 'react-native';
-import CustomButton from '../../../common-components/buttons/buttons';
+import {View, Text, TouchableHighlightBase} from 'react-native';
+import {CustomButton, Spinner} from '../../../common-components';
 import {InteractionActions} from '../../../libs/redux/actions';
 import {TextInput} from '../../../common-components';
 import styles from './styles';
 import {Colors} from '../../../assets/colors';
+import {AuthController} from '../../../libs/controllers';
 
 class LoginComponent extends Component {
   state = {
     email: '',
     password: '',
+    error: '',
     modalVisible: false,
+    isFetching: false,
   };
 
   toggleModal = () => {
@@ -33,13 +36,33 @@ class LoginComponent extends Component {
     }
   };
 
-  componentDidMount = () => {
-    const {history} = this.props;
+  setSpinner = trigger => {
+    this.setState({isFetching: trigger});
+  };
+
+  validator = () => {
+    const {email, password} = this.state;
+    const user = {email, password};
+    return email !== '' && password !== '' ? user : false;
+  };
+
+  sendForm = async () => {
+    const {history, signIn} = this.props;
+    const isValid = await this.validator();
+    if (isValid) {
+      this.setSpinner(true);
+      const req = await signIn(isValid);
+      if (req && !req.error) {
+        history.push('/dashboard');
+      } else {
+        this.setSpinner(false);
+        this.setState({error: req.error});
+      }
+    }
   };
 
   render() {
-    const {email, password} = this.state;
-    const {history} = this.props;
+    const {email, password, isFetching, error} = this.state;
     return (
       <React.Fragment>
         <View style={styles.container}>
@@ -82,13 +105,22 @@ class LoginComponent extends Component {
             </View>
           </View>
 
-          <View style={styles.buttonsView}>
-            <CustomButton
-              title={'ENTRAR'}
-              color={Colors.secondary}
-              onPress={this.sendForm}
-            />
-          </View>
+          {isFetching ? (
+            <Spinner />
+          ) : (
+            <View style={styles.buttonsView}>
+              {error ? (
+                <View style={styles.errorView}>
+                  <Text style={styles.errorText}>{error}</Text>
+                </View>
+              ) : null}
+              <CustomButton
+                title={'ENTRAR'}
+                color={Colors.secondary}
+                onPress={this.sendForm}
+              />
+            </View>
+          )}
         </View>
       </React.Fragment>
     );
@@ -97,6 +129,7 @@ class LoginComponent extends Component {
 
 const mapDispatchToProps = dispatch => ({
   setModal: (id, func) => dispatch(InteractionActions.setInfoModal(id, func)),
+  signIn: data => AuthController.signIn(dispatch, data),
 });
 
 export default connect(
