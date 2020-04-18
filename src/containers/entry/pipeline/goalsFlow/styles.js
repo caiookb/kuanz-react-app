@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { Colors } from '../../../../assets/colors';
+import {StyleSheet} from 'react-native';
+import {Colors} from '../../../../assets/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.secondary,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   nav: {
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     paddingHorizontal: 20,
-    marginBottom: 40
+    marginBottom: 40,
   },
   content: {
     width: '95%',
@@ -47,15 +47,18 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   success: {
-    width: '75%',
     height: 300,
     flexDirection: 'column',
     justifyContent: 'center',
-    marginTop: 100,
+    alignItems: 'center',
+    borderRadius: 250,
   },
   successText: {
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
+  },
+  cardImageInfo: {
+    marginTop: 30,
   },
 });

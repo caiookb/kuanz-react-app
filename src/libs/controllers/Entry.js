@@ -10,7 +10,7 @@ export const getEntryRoute = async () => {
 
   if (userToken) {
     return '/dashboard';
-  } else if (userToken === null) {
+  } else if (!userToken) {
     return '/entry';
   }
 };
