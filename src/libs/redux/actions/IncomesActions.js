@@ -1,11 +1,11 @@
 import {IncomesTypes} from '../types';
 
-export const updateSession = (session): Action => ({
+export const updateIncomes = (session): Action => ({
   type: IncomesTypes.UPDATE_INCOMES,
   payload: session,
 });
 
-export const updateSessionField = (field, data) => ({
+export const updateIncomesField = (field, data) => ({
   type: IncomesTypes.UPDATE_INCOMES_FIELD,
   payload: {field: field, data},
 });
