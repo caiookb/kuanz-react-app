@@ -30,12 +30,17 @@ class Dashboard extends Component {
   };
 
   render() {
+    const {incomesTotal} = this.props;
+
     return (
       <View style={styles.container}>
         <CustomButton color={Colors.fifth} onPress={() => this.logout()} />
 
         <View>
-          <FooterMenu handleNavButton={this.handleNavButtons} />
+          <FooterMenu
+            incomes={incomesTotal}
+            handleNavButton={this.handleNavButtons}
+          />
         </View>
       </View>
     );
@@ -43,8 +48,12 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('STATE DO REDUX', state);
-  return state;
+  const {
+    incomes,
+    incomes: {totalValue: incomesTotal},
+  } = state;
+
+  return {incomes, incomesTotal};
 };
 
 const mapDispatchToProps = dispatch => ({

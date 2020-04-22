@@ -29,7 +29,10 @@ const color = title => {
 };
 
 const BalanceStats = props => {
-  const {title, value} = props.item;
+  const {
+    item: {title, value},
+    incomes,
+  } = props;
   return (
     <View style={styles.balanceStats}>
       <View style={styles.balanceStatsView}>
@@ -37,7 +40,7 @@ const BalanceStats = props => {
         <Text style={styles.balanceStatsTitle}>{title}</Text>
       </View>
       <Text style={[styles.balanceStatsValue, {color: color(title)}]}>
-        R${value}
+        R${incomes.toFixed(2)}
       </Text>
     </View>
   );
@@ -91,13 +94,13 @@ const values = [
 ];
 
 const FooterMenu = props => {
-  const {handleNavButton} = props;
+  const {handleNavButton, incomes} = props;
 
   return (
     <View style={styles.container}>
       <View style={styles.balanceView}>
         {values.map(item => {
-          return <BalanceStats item={item} />;
+          return <BalanceStats item={item} incomes={incomes} />;
         })}
       </View>
       <DownNavBar handleNavButton={handleNavButton} />
