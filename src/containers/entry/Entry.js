@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
-import CustomButton from '../../common-components/buttons/buttons';
+import {CustomButton} from '../../common-components';
 import styles from './styles';
 import {Colors} from '../../assets/colors';
 
