@@ -5,7 +5,7 @@ export const updateSpendings = (spendings): Action => ({
   payload: spendings,
 });
 
-export const updateIncomesField = (field, data) => ({
+export const updateSpendingsField = (field, data) => ({
   type: SpendingsTypes.UPDATE_SPENDINGS_FIELD,
   payload: {field: field, data},
 });
