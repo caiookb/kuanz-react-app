@@ -17,10 +17,7 @@ export default (state = initialState, action) => {
     case SessionTypes.UPDATE_SESSION_FIELD:
       return {
         ...state,
-        [payload.field]: {
-          ...state[payload.field],
-          ...payload.data,
-        },
+        metadata: payload,
       };
     case SessionTypes.CLEAN_SESSION:
       return {
