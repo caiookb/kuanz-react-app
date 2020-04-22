@@ -16,8 +16,7 @@ import styles from './styles';
 const Main = props => {
   const {screen} = props;
   const {sections} = Routes;
-  console.log('screen', screen);
-  console.log('routes', sections);
+
   const WrapperView = Platform.OS === 'ios' ? SafeAreaView : View;
   return (
     <WrapperView style={styles.container}>

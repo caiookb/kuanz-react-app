@@ -4,7 +4,6 @@ import {SessionController} from '../controllers';
 import {AsyncStorage} from 'react-native';
 
 export const signUp = async (dispatch, data) => {
-  console.log('data', data);
   const req = await Auth.signUp(data).catch(err =>
     console.log('Caiu no catch', err),
   );
