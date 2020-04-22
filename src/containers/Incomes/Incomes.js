@@ -13,7 +13,7 @@ import {
 } from '../../common-components';
 import {configLocalCalendar} from '../../common-components/calendar/Calendar';
 import {Colors} from '../../assets/colors';
-import * as IncomeController from './controller';
+import {IncomesController} from '../../libs/controllers';
 import styles from './styles';
 import moment from 'moment';
 
@@ -222,7 +222,7 @@ class Incomes extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createIncome: data => IncomeController.createIncome(dispatch, data),
+  createIncome: data => IncomesController.createIncome(dispatch, data),
 });
 
 export default withRouter(

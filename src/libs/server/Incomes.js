@@ -11,3 +11,12 @@ export const postIncome = async body => {
     auth: token,
   });
 };
+
+export const getAllIncomes = async token => {
+  return fetchServer({
+    method: 'GET',
+    path: ['incomes', 'list'],
+    body: '',
+    auth: token,
+  });
+};
