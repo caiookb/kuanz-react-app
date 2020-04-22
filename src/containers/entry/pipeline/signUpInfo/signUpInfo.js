@@ -8,7 +8,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import CustomButton from '../../../../common-components/buttons/buttons';
+import {CustomButton} from '../../../../common-components';
 import styles from './styles';
 import {Colors} from '../../../../assets/colors';
 import {money, lock, graph} from '../../../../assets/images';

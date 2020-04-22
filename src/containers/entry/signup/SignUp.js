@@ -1,21 +1,11 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  AsyncStorage,
-} from 'react-native';
+import {View, Text, KeyboardAvoidingView, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import CustomButton from '../../../common-components/buttons/buttons';
-import {TextInput} from '../../../common-components';
-
-import Spinner from '../../../common-components/spinner/Spinner';
-import {Colors} from '../../../assets/colors';
-import * as AuthController from './controller';
+import {TextInput, Spinner, CustomButton} from '../../../common-components';
+import {AuthController} from '../../../libs/controllers';
 import styles from './styles';
+import {Colors} from '../../../assets/colors';
 
 class SignUp extends Component {
   state = {
@@ -115,7 +105,7 @@ class SignUp extends Component {
           {!fetching ? (
             <KeyboardAvoidingView
               enabled
-              behavior={'height'}
+              behavior={'padding'}
               style={styles.content}
               keyboardShouldPersistTaps="handled">
               <View style={styles.inputView}>

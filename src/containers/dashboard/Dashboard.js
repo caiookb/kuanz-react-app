@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  AsyncStorage,
-  TouchableHighlight,
-} from 'react-native';
+import {View, Text, AsyncStorage, TouchableHighlight} from 'react-native';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import styles from './styles.js';
+import {FooterMenu, CustomButton} from '../../common-components';
 import * as GoalsController from '../entry/pipeline/goalsFlow/controller';
+import {Colors} from '../../assets/colors.js';
 
 class Dashboard extends Component {
   state = {
@@ -25,61 +18,42 @@ class Dashboard extends Component {
     this.setState({goals: test});
   };
 
-  goToIncomes = () => {
+  handleNavButtons = route => {
     const {history} = this.props;
-    history.push('/incomes');
+    history.push(`/${route}`);
   };
 
   logout = async () => {
+    const {history} = this.props;
     await AsyncStorage.removeItem('userToken');
+    history.replace('/entry');
   };
 
   render() {
-    const {goals} = this.state;
-
     return (
-      <View style={styles.page}>
-        <View style={styles.container}>
-          <View style={styles.goalTitle}>
-            <Text style={styles.goalTitleText}>
-              Você tem {goals.length} objetivos!
-            </Text>
-          </View>
+      <View style={styles.container}>
+        <CustomButton color={Colors.fifth} onPress={() => this.logout()} />
 
-          {goals.map(goal => {
-            return (
-              <View style={styles.card}>
-                <Text style={styles.cardName}>Titulo: {goal.name}</Text>
-                <Text style={styles.date}>
-                  Data do objetivo: {goal.estimated_date}
-                </Text>
-              </View>
-            );
-          })}
-        </View>
-        <View style={styles.footerMenu}>
-          <TouchableHighlight
-            style={styles.footerButton}
-            onPress={this.goToIncomes}>
-            <Text style={styles.footerButtonText}>Receitas</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.footerButton}>
-            <Text style={styles.footerButtonText}>Despesas</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.footerButton}>
-            <Text style={styles.footerButtonText}>Metas</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.footerButton} onPress={this.logout}>
-            <Text style={styles.footerButtonText}>Sair</Text>
-          </TouchableHighlight>
+        <View>
+          <FooterMenu handleNavButton={this.handleNavButtons} />
         </View>
       </View>
     );
   }
 }
 
+const mapStateToProps = state => {
+  console.log('STATE DO REDUX', state);
+  return state;
+};
+
 const mapDispatchToProps = dispatch => ({
   getGoals: () => GoalsController.listGoal(dispatch),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(Dashboard));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Dashboard),
+);

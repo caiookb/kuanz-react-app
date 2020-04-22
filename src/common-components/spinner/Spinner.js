@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
-import {withRouter} from 'react-router-dom';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,10 +27,6 @@ const ActivitySpinenr = props => {
       <Text style={styles.text}> {text} </Text>
     </View>
   );
-};
-
-ActivitySpinenr.defaultProps = {
-  text: 'Carregando...',
 };
 
 export default ActivitySpinenr;

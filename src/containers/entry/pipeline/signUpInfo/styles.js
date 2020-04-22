@@ -3,7 +3,7 @@ import {Colors} from '../../../../assets/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primary,
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -30,8 +30,8 @@ export default StyleSheet.create({
   fixedBottom: {
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    backgroundColor: 'black',
     width: '100%',
+    marginBottom: 20,
   },
   card: {
     height: 120,

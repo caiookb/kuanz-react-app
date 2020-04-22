@@ -1,35 +1,47 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-  logoView: {
-    height: '50%',
-    backgroundColor: 'white',
-  },
-  formView: {
-    height: '35%',
-    backgroundColor: '#024A73',
-  },
-  buttonsView: {
-    height: '15%',
-    backgroundColor: 'blue',
-  },
-  buttonsConfirm: {
+  button: {
     width: '100%',
     height: 60,
-    backgroundColor: '#0F70B8',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  roundedButton: {
+    width: '90%',
+    height: '80%',
+    borderRadius: 10,
   },
   signUpButton: {
     height: '50%',
     backgroundColor: '#2896E8',
   },
   buttonsText: {
+    fontWeight: '200',
     textAlign: 'center',
     fontSize: 20,
     color: 'white',
-    marginTop: 15,
+    marginTop: 10,
+  },
+  IconButton: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  IconButtonSpending: {
+    flexDirection: 'row-reverse',
+  },
+  rotateIconSpending: {
+    transform: [{rotate: '1804deg'}],
+  },
+  IconButtonText: {
+    color: 'white',
+    fontSize: 18,
+    marginBottom: 4,
+    textAlignVertical: 'center',
   },
 });

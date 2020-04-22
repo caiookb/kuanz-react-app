@@ -3,8 +3,11 @@ import {Colors} from '../../assets/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00997A',
+    backgroundColor: Colors.primary,
     flexDirection: 'column',
     justifyContent: 'flex-end',
+  },
+  buttonsView: {
+    marginBottom: 20,
   },
 });

@@ -1,28 +1,34 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  AsyncStorage,
-} from 'react-native';
+import {View, Text, KeyboardAvoidingView, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import CustomButton from '../../common-components/buttons/buttons';
-import Spinner from '../../common-components/spinner/Spinner';
+import {
+  CustomButton,
+  TextInput,
+  Spinner,
+  CheckBox,
+  UpperNav,
+  CalendarModal,
+  Datepicker,
+} from '../../common-components';
+import {configLocalCalendar} from '../../common-components/calendar/Calendar';
 import {Colors} from '../../assets/colors';
 import * as IncomeController from './controller';
 import styles from './styles';
+import moment from 'moment';
 
-class SignUp extends Component {
+configLocalCalendar();
+
+class Incomes extends Component {
   state = {
     name: undefined,
-    value: undefined,
+    value: 0,
     type: undefined,
-    received: undefined,
-    receivedDate: undefined,
+    received: true,
+    receiveDate: moment().format('YYYY-MM-DD'),
+    error: '',
+    fetching: false,
+    toggleCalendar: false,
   };
 
   componentDidMount = () => {
@@ -30,26 +36,42 @@ class SignUp extends Component {
   };
 
   isFormValid = async () => {
-    const {name, value, type, received, receivedDate} = this.state;
-    if (!name && !value && !type && !receivedDate && !received) {
+    const {name, value, type, received, receiveDate} = this.state;
+    if (!name && !value && !type && !receiveDate && !received) {
       this.setState({error: 'Preencha todos os campos!'});
       return false;
     } else {
       this.setState({formValid: true, fetching: true});
-      const income = {nname, value, type, received, receivedDate};
+      const income = {
+        name,
+        value: this.handleValue(),
+        type,
+        received,
+        receiveDate,
+      };
       this.setState({fetching: true});
       return income;
     }
   };
 
+  handleValue = () => {
+    const {value} = this.state;
+    console.log('value', value);
+    const cleanValue = value
+      .split('.')
+      .join('')
+      .replace(',', '.');
+
+    console.log('clean value', cleanValue);
+    return parseFloat(cleanValue.replace('R$', '')).toFixed(2);
+  };
+
   sendForm = async () => {
     const {history, createIncome} = this.props;
-    console.log('Chamando SENDFORM()');
     const income = await this.isFormValid();
-    console.log('user criado pelo isFormValid()', user);
+    console.log('INCOME INDO PRA REQ', income);
     const req = await createIncome(income);
-    console.log('Requisição feita pelo signUp()', req);
-
+    console.log('Requisição feita pelo sendForm', req);
     if (!req.error) {
       history.push('/dashboard');
     } else {
@@ -59,88 +81,141 @@ class SignUp extends Component {
     }
   };
 
+  onChangeInput = (text, type) => {
+    switch (type) {
+      case 'name':
+        this.setState({name: text});
+        break;
+      case 'value':
+        this.setState({value: text});
+        break;
+      case 'type':
+        this.setState({type: text});
+        break;
+      case 'received':
+        this.setState({received: text});
+        break;
+      case 'receiveDate':
+        this.setState({receiveDate: text});
+        break;
+    }
+  };
+
+  handleCheckBox = () => {
+    const {received} = this.state;
+    if (received) {
+      this.setState({received: false});
+    } else {
+      this.setState({received: true});
+    }
+  };
+
+  handleDaySelected = date => {
+    console.log('date no handle day', date);
+    this.setState({receiveDate: date});
+  };
+
+  toggleCalendarModal = trigger => {
+    this.setState({toggleCalendar: trigger});
+  };
+
   render() {
     const {
       name,
       value,
       type,
       received,
-      receivedDate,
+      receiveDate,
       fetching,
+      toggleCalendar,
       error,
     } = this.state;
+
+    const {history} = this.props;
+
     return (
-      <View style={styles.page}>
-        <View style={styles.nav}></View>
-        {error ? (
-          <View style={styles.errorView}>
-            <Text style={styles.errorMessage}>{error}</Text>
+      <View style={styles.container}>
+        <UpperNav
+          title={'Adicionar uma nova receita'}
+          color={Colors.income}
+          onPress={() => {
+            history.goBack();
+          }}
+        />
+
+        <KeyboardAvoidingView
+          enabled
+          behavior={'height'}
+          style={styles.content}
+          keyboardShouldPersistTaps="handled">
+          <View style={styles.inputView}>
+            <TextInput
+              value={value}
+              type={'money'}
+              label={'Valor da receita'}
+              maskInputProps={{
+                placeholder: '',
+                onChangeText: text => this.onChangeInput(text, 'value'),
+              }}
+              typeOf={'value'}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              value={name}
+              type={'custom'}
+              label={'Título'}
+              maskOptions={{
+                mask: '************',
+              }}
+              maskInputProps={{
+                placeholder: '',
+                onChangeText: text => this.onChangeInput(text, 'name'),
+              }}
+            />
+          </View>
+          <View style={styles.doubleView}>
+            <Datepicker
+              day={receiveDate}
+              setDay={this.handleDaySelected}
+              enabled={toggleCalendar}
+              type={'recebimento'}
+              toggle={this.toggleCalendarModal}
+            />
+            <CheckBox
+              enable={received}
+              onPress={this.handleCheckBox}
+              title={'Recebido'}
+            />
+          </View>
+          <View style={styles.inputView}>
+            <TextInput
+              value={type}
+              type={'custom'}
+              label={'Marcação'}
+              maskOptions={{
+                mask: '************',
+              }}
+              maskInputProps={{
+                placeholder: '',
+                onChangeText: text => this.onChangeInput(text, 'type'),
+              }}
+            />
+          </View>
+        </KeyboardAvoidingView>
+        {fetching ? (
+          <View>
+            <Spinner />
           </View>
         ) : null}
-
-        <ScrollView contentContainerStyle={styles.container}>
-          {!fetching ? (
-            <KeyboardAvoidingView
-              enabled
-              behavior={'height'}
-              style={styles.content}
-              keyboardShouldPersistTaps="handled">
-              <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Titulo</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({name: text})}
-                  value={name}
-                />
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Valor</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({value: text})}
-                  value={value}
-                />
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Tipo</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({type: text})}
-                  value={type}
-                />
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>Recebido (true || false)</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({received: text})}
-                  value={received}
-                />
-              </View>
-              <View style={styles.inputView}>
-                <Text style={styles.inputTitle}>
-                  Data de recebimento (YYYY-MM-DD)
-                </Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={text => this.setState({receivedDate: text})}
-                  value={receivedDate}
-                />
-              </View>
-            </KeyboardAvoidingView>
-          ) : (
-            <View>
-              <Spinner />
-            </View>
-          )}
-        </ScrollView>
-        <View style={styles.fixedBottom}>
-          <CustomButton
-            title={'CONFIMAR'}
-            color={Colors.secondary}
-            onPress={() => this.sendForm()}
-          />
-        </View>
+        <CustomButton
+          title={'Adicionar receita'}
+          color={Colors.income}
+          onPress={() => {
+            this.sendForm();
+          }}
+          type={'single'}
+        />
       </View>
     );
   }
@@ -150,4 +225,9 @@ const mapDispatchToProps = dispatch => ({
   createIncome: data => IncomeController.createIncome(dispatch, data),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(SignUp));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps,
+  )(Incomes),
+);

@@ -1,14 +1,16 @@
-import { AsyncStorage } from "react-native";
+import {AsyncStorage} from 'react-native';
 
 export const getUserToken = async () => {
-  const userToken = await AsyncStorage.getItem('userTokesn');
+  const userToken = await AsyncStorage.getItem('userToken');
   return userToken;
-}
+};
 
-export const getEntryRoute = () => {
-  if (getUserToken) {
-    return '/dashboard'
-  } else {
-    return '/entry'
+export const getEntryRoute = async () => {
+  const userToken = await getUserToken();
+
+  if (userToken) {
+    return '/dashboard';
+  } else if (!userToken) {
+    return '/entry';
   }
 };
