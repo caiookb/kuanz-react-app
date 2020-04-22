@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {NativeRouter} from 'react-router-native';
 import {View} from 'react-native';
 import AppContainer from './AppContainer';
 import * as EntryController from './src/libs/controllers/Entry';
-import {AsyncStorage} from 'react-native';
 import Loading from './src/containers/root/loading/Loading';
 
 class App extends Component {
@@ -15,16 +15,18 @@ class App extends Component {
   };
 
   componentDidMount = async props => {
-    console.log('HANDLE ROUTING', await this.handleLogin());
     this.setState({status: await this.handleLogin(), loading: false});
   };
 
   handleLogin = async () => {
+    const {initializeData} = this.props;
     const token = await EntryController.getUserToken();
+
     if (token) {
+      initializeData(token);
       this.setState({isLogged: true});
     }
-    return EntryController.getEntryRoute();
+    return EntryController.getEntryRoute(token);
   };
 
   render = () => {
@@ -41,4 +43,12 @@ class App extends Component {
   };
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  saveUserToken: data => EntryController.saveUserTokenOnRedux(dispatch, data),
+  initializeData: data => EntryController.initializeData(dispatch, data),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(App);
