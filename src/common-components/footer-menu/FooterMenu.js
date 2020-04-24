@@ -40,7 +40,7 @@ const BalanceStats = props => {
         <Text style={styles.balanceStatsTitle}>{title}</Text>
       </View>
       <Text style={[styles.balanceStatsValue, {color: color(title)}]}>
-        R${incomes.toFixed(2)}
+        R${incomes && incomes.toFixed(2)}
       </Text>
     </View>
   );

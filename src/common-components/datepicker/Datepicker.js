@@ -19,7 +19,7 @@ const Datepicker = props => {
   return (
     <React.Fragment>
       <View style={styles.datepicker}>
-        <Text style={styles.label}>{`Data de ${type}`}</Text>
+        <Text style={styles.label}>{`Data`}</Text>
         <View style={styles.content}>
           <View style={styles.image}>
             <Image source={calendar} />
@@ -27,7 +27,7 @@ const Datepicker = props => {
           <TouchableOpacity
             style={styles.image}
             onPress={() => {
-              toggle(true);
+              toggle('toggleCalendar', true);
             }}>
             <Text style={styles.label}>{convertDay(day)}</Text>
           </TouchableOpacity>
@@ -41,7 +41,11 @@ const Datepicker = props => {
         onRequestClose={() => {}}>
         <View style={styles.centeredView}>
           <View style={styles.itens}>
-            <CalendarComponent day={day} handleDaySelected={setDay} />
+            <CalendarComponent
+              day={day}
+              handleDaySelected={setDay}
+              type={type}
+            />
           </View>
 
           <View style={styles.itens}>
@@ -49,7 +53,7 @@ const Datepicker = props => {
               color={Colors.fifth}
               title={'Confirmar'}
               onPress={() => {
-                toggle(false);
+                toggle('toggleCalendar', false);
               }}
             />
           </View>
