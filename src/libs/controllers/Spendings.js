@@ -1,8 +1,9 @@
 import {SessionActions, SpendingsActions} from '../redux/actions';
 import {Spendings} from '../server';
+import * as StoreController from './Store';
 
 export const createSpending = (dispatch, data) => {
-  return Spendings.postSpending(data)
+  return Spendings.postSpending(data, StoreController.getUserToken())
     .then(res => {
       const {allSpendings, totalValue} = res;
       const spendingObject = {allSpendings, totalValue};

@@ -11,6 +11,8 @@ import SignUp from '../../entry/signup/SignUp';
 import GoalsFlow from '../../entry/pipeline/goalsFlow/GoalsFlow';
 import Dashboard from '../../dashboard/Dashboard';
 import Incomes from '../../Incomes/Incomes';
+import Spendings from '../../spendings/Spendings';
+
 import styles from './styles';
 
 const Main = props => {
@@ -30,6 +32,7 @@ const Main = props => {
         <Route path={sections[4]} component={GoalsFlow} />
         <Route path={sections[5]} component={Dashboard} />
         <Route path={sections[6]} component={Incomes} />
+        <Route path={sections[7]} component={Spendings} />
       </Switch>
     </WrapperView>
   );

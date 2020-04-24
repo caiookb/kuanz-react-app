@@ -7,5 +7,6 @@ export const Routes = {
     '/goalsFlow',
     '/dashboard',
     '/incomes',
+    '/spendings',
   ],
 };
