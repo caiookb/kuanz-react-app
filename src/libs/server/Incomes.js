@@ -1,13 +1,19 @@
 import fetchServer from './server';
-import {AsyncStorage} from 'react-native';
 
-export const postIncome = async body => {
-  const token = await AsyncStorage.getItem('userToken');
-  console.log('BODY', body);
+export const postIncome = (body, token, firstDate, lastDate) => {
   return fetchServer({
     method: 'POST',
-    path: ['incomes', 'create'],
+    path: ['incomes', `create?firstDate=${firstDate}&lastDate=${lastDate}`],
     body,
+    auth: token,
+  });
+};
+
+export const getAllIncomes = (firstDate, lastDate, token) => {
+  return fetchServer({
+    method: 'GET',
+    path: ['incomes', `list?firstDate=${firstDate}&lastDate=${lastDate}`],
+    body: '',
     auth: token,
   });
 };

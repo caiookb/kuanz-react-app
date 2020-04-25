@@ -1,7 +1,7 @@
-import {IncomesTypes} from '../types';
+import {SpendingsTypes} from '../types';
 
 const initialState = {
-  allIncomes: null,
+  allSpendings: null,
   totalValue: null,
 };
 
@@ -9,12 +9,12 @@ export default (state = initialState, action) => {
   const {type, payload} = action;
 
   switch (type) {
-    case IncomesTypes.UPDATE_INCOMES:
+    case SpendingsTypes.UPDATE_SPENDINGS:
       return {
         ...state,
         ...payload,
       };
-    case IncomesTypes.UPDATE_INCOMES_FIELD:
+    case SpendingsTypes.UPDATE_SPENDINGS_FIELD:
       return {
         ...state,
         [payload.field]: {
@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
           ...payload.data,
         },
       };
-    case IncomesTypes.CLEAN_INCOMES:
+    case SpendingsTypes.CLEAN_SPENDINGS:
       return {
         ...state,
       };

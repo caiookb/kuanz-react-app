@@ -13,7 +13,7 @@ import {
 } from '../../common-components';
 import {configLocalCalendar} from '../../common-components/calendar/Calendar';
 import {Colors} from '../../assets/colors';
-import * as IncomeController from './controller';
+import {IncomesController} from '../../libs/controllers';
 import styles from './styles';
 import moment from 'moment';
 
@@ -63,7 +63,7 @@ class Incomes extends Component {
       .replace(',', '.');
 
     console.log('clean value', cleanValue);
-    return parseFloat(cleanValue.replace('R$', '')).toFixed(2);
+    return parseFloat(cleanValue && cleanValue.replace('R$', ''));
   };
 
   sendForm = async () => {
@@ -110,14 +110,23 @@ class Incomes extends Component {
     }
   };
 
-  handleDaySelected = date => {
-    console.log('date no handle day', date);
-    this.setState({receiveDate: date});
+  handleState = (type, value) => {
+    switch (type) {
+      case 'day':
+        this.setState({receiveDate: value});
+        break;
+      case 'toggleCalendar':
+        this.setState({toggleCalendar: value});
+        break;
+      case 'togglePeriod':
+        this.setState({togglePeriod: value});
+        break;
+    }
   };
 
-  toggleCalendarModal = trigger => {
-    this.setState({toggleCalendar: trigger});
-  };
+  handleDaySelected = date => {};
+
+  toggleCalendarModal = trigger => {};
 
   render() {
     const {
@@ -177,10 +186,10 @@ class Incomes extends Component {
           <View style={styles.doubleView}>
             <Datepicker
               day={receiveDate}
-              setDay={this.handleDaySelected}
+              setDay={this.handleState}
               enabled={toggleCalendar}
-              type={'recebimento'}
-              toggle={this.toggleCalendarModal}
+              type={'day'}
+              toggle={this.handleState}
             />
             <CheckBox
               enable={received}
@@ -222,7 +231,7 @@ class Incomes extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createIncome: data => IncomeController.createIncome(dispatch, data),
+  createIncome: data => IncomesController.createIncome(dispatch, data),
 });
 
 export default withRouter(
