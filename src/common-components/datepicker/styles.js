@@ -24,8 +24,7 @@ export default StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
-    marginTop: 22,
-    backgroundColor: 'rgba(0,0,0,0.8)',
+    backgroundColor: 'rgba(0,0,0,0.9)',
   },
   modalView: {
     margin: 20,
