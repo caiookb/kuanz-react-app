@@ -28,11 +28,15 @@ const color = title => {
     : Colors.secondary;
 };
 
+const handleValue = title => {};
+
 const BalanceStats = props => {
   const {
     item: {title, value},
     incomes,
+    spendings,
   } = props;
+
   return (
     <View style={styles.balanceStats}>
       <View style={styles.balanceStatsView}>
@@ -40,7 +44,12 @@ const BalanceStats = props => {
         <Text style={styles.balanceStatsTitle}>{title}</Text>
       </View>
       <Text style={[styles.balanceStatsValue, {color: color(title)}]}>
-        R${incomes && incomes.toFixed(2)}
+        R$
+        {title === 'Despesas'
+          ? spendings
+          : title === 'Receita'
+          ? incomes
+          : incomes - spendings}
       </Text>
     </View>
   );
@@ -94,13 +103,15 @@ const values = [
 ];
 
 const FooterMenu = props => {
-  const {handleNavButton, incomes} = props;
+  const {handleNavButton, incomes, spendings} = props;
 
   return (
     <View style={styles.container}>
       <View style={styles.balanceView}>
         {values.map(item => {
-          return <BalanceStats item={item} incomes={incomes} />;
+          return (
+            <BalanceStats item={item} incomes={incomes} spendings={spendings} />
+          );
         })}
       </View>
       <DownNavBar handleNavButton={handleNavButton} />
