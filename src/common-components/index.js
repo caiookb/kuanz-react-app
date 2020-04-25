@@ -7,6 +7,7 @@ import Spinner from './spinner/Spinner';
 import CheckBox from './checkbox/CheckBox';
 import FooterMenu from './footer-menu/FooterMenu';
 import Repeat from './repeat/Repeat';
+import Monthpicker from './monthpicker/Monthpicker';
 import {UpperNav} from './navs/Navs';
 
 export {
@@ -17,6 +18,7 @@ export {
   Datepicker,
   FooterMenu,
   IconButton,
+  Monthpicker,
   Repeat,
   Spinner,
   TextInput,
