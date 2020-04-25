@@ -10,3 +10,8 @@ export const getUserToken = () => {
   } = StoreData();
   return metadata;
 };
+
+export const date = () => {
+  const {calendarDate} = StoreData();
+  return calendarDate;
+};
