@@ -87,7 +87,7 @@ class Spendings extends Component {
       .split('.')
       .join('')
       .replace(',', '.');
-    return parseFloat(cleanValue.replace('R$', '')).toFixed(2);
+    return parseFloat(cleanValue && cleanValue.replace('R$', ''));
   };
 
   handleState = (type, value) => {

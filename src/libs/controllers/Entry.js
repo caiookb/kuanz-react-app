@@ -1,5 +1,5 @@
 import {AsyncStorage} from 'react-native';
-import {SessionController, IncomesController} from '.';
+import {SessionController, IncomesController, SpendingsController} from '.';
 import {StoreData, dispatch} from './Store';
 export const getUserToken = async () => {
   const userToken = await AsyncStorage.getItem('userToken');
@@ -9,6 +9,7 @@ export const getUserToken = async () => {
 export const initializeData = async (dispatch, data) => {
   SessionController.saveUserToken(dispatch, data);
   IncomesController.fetchAllIncomes(dispatch, data);
+  SpendingsController.fetchAllSpendings(dispatch, data);
 };
 
 export const getEntryRoute = async userToken => {

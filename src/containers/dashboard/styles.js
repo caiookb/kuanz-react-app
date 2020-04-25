@@ -1,12 +1,19 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
-import {withRouter} from 'react-router-dom';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     backgroundColor: Colors.primary,
+  },
+  nav: {
+    marginTop: 15,
+    height: 80,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });
