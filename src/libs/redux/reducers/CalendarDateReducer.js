@@ -1,8 +1,14 @@
 import {CalendarDateTypes} from '../types';
+import moment from 'moment';
 
 const initialState = {
-  firstDate: null,
-  lastDate: null,
+  date: moment().format('YYYY-MM-DD'),
+  firstDate: moment()
+    .startOf('month')
+    .format('YYYY-MM-DD'),
+  lastDate: moment()
+    .endOf('month')
+    .format('YYYY-MM-DD'),
 };
 
 export default (state = initialState, action) => {

@@ -1,7 +1,8 @@
 import {SpendingsTypes} from '../types';
 
 const initialState = {
-  spendings: null,
+  allSpendings: null,
+  totalValue: null,
 };
 
 export default (state = initialState, action) => {

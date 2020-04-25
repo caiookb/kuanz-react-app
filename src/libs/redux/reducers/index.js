@@ -10,5 +10,5 @@ export default combineReducers({
   session: SessionReducer,
   incomes: IncomesReducer,
   spendings: SpendingsReducer,
-  date: CalendarReducer,
+  calendarDate: CalendarReducer,
 });
