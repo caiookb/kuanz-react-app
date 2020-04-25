@@ -17,3 +17,6 @@ export const calendar = require('../../assets/icons/calendar.png');
 export const add = require('../../assets/icons/add.png');
 export const subtract = require('../../assets/icons/subtract.png');
 export const repeatRound = require('../../assets/icons/repeat.png');
+export const arrow = require('../../assets/icons/arrow.png');
+export const config = require('../../assets/icons/config.png');
+export const profile = require('../../assets/icons/profile.png');
