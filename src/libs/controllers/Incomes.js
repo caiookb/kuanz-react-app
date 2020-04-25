@@ -1,6 +1,6 @@
 import {IncomesActions} from '../redux/actions';
 import {Incomes} from '../server';
-import {IncomesController} from '.';
+import {IncomesController, StoreController} from '../controllers';
 
 export const createIncome = (dispatch, data) => {
   return Incomes.postIncome(data)
@@ -15,8 +15,10 @@ export const createIncome = (dispatch, data) => {
     });
 };
 
-export const fetchAllIncomes = async (dispatch, token) => {
-  return Incomes.getAllIncomes(token)
+export const fetchAllIncomes = async (dispatch, tokinho) => {
+  const date = StoreController.date();
+  const token = StoreController.getUserToken();
+  return Incomes.getAllIncomes(date.firstDate, date.lastDate, token)
     .then(incomes => {
       saveIncomesOnRedux(dispatch, incomes);
     })
