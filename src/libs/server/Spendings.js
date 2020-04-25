@@ -1,18 +1,18 @@
 import fetchServer from './server';
 
-export const postSpending = (body, token) => {
+export const postSpending = (body, token, firstDate, lastDate) => {
   return fetchServer({
     method: 'POST',
-    path: ['spending', 'create'],
+    path: ['spending', `create?firstDate=${firstDate}&lastDate=${lastDate}`],
     body,
     auth: token,
   });
 };
 
-export const getAllSpendings = token => {
+export const getAllSpendings = (firstDate, lastDate, token) => {
   return fetchServer({
     method: 'GET',
-    path: ['spending', 'list'],
+    path: ['spending', `list?firstDate=${firstDate}&lastDate=${lastDate}`],
     body: '',
     auth: token,
   });
