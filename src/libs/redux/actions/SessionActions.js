@@ -5,7 +5,7 @@ export const updateSession = (session): Action => ({
   payload: session,
 });
 
-export const updateSessionUserToken = data => ({
+export const updateSessionUserToken = token => ({
   type: SessionTypes.UPDATE_SESSION_FIELD,
-  payload: {field: 'userToken', data},
+  payload: token,
 });

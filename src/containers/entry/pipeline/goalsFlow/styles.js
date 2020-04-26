@@ -3,24 +3,12 @@ import {Colors} from '../../../../assets/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primary,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  nav: {
-    width: '100%',
-    height: 80,
-    backgroundColor: Colors.third,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-  },
+
   textTitle: {
     marginTop: 30,
     color: 'white',
@@ -30,22 +18,21 @@ export default StyleSheet.create({
     marginBottom: 40,
   },
   content: {
-    width: '95%',
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
+    marginTop: 80,
+    width: '98%',
   },
-  card: {
-    width: '99%',
-  },
-
   fixedBottom: {
-    width: '100%',
+    marginBottom: 15,
   },
   inputView: {
-    width: '99%',
-    marginTop: 20,
+    marginBottom: 15,
   },
+  datepicker: {
+    marginHorizontal: 20,
+  },
+
   success: {
     height: 300,
     flexDirection: 'column',

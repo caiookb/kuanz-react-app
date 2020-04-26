@@ -3,7 +3,7 @@ import {Colors} from '../../../assets/colors';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00997A',
+    backgroundColor: Colors.primary,
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
@@ -23,6 +23,9 @@ export default StyleSheet.create({
     textAlign: 'right',
     fontSize: 18,
     color: 'white',
+  },
+  buttonsView: {
+    marginBottom: 20,
   },
   errorView: {
     opacity: 0.9,

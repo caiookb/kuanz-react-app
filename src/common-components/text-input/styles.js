@@ -3,10 +3,11 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
 export default StyleSheet.create({
   input: {
-    fontSize: 16,
-    color: 'white',
+    fontSize: 22,
+    fontWeight: '200',
+    color: '#FFFFFF',
     borderBottomWidth: 1,
-    borderBottomColor: 'white',
+    borderBottomColor: '#005F94',
     borderRadius: 2,
     marginHorizontal: 20,
     paddingHorizontal: 0,
@@ -16,8 +17,8 @@ export default StyleSheet.create({
     marginHorizontal: 20,
   },
   labelText: {
+    fontWeight: '200',
     fontSize: 18,
-    fontWeight: '300',
     color: 'white',
   },
 });
