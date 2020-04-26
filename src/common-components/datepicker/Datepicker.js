@@ -16,6 +16,7 @@ const convertDay = day => {
 
 const Datepicker = props => {
   const {toggle, enabled, day, setDay, type} = props;
+  console.log('ENABLE?', enabled);
   return (
     <React.Fragment>
       <View style={styles.datepicker}>
@@ -38,7 +39,9 @@ const Datepicker = props => {
         animationType="slide"
         transparent={true}
         visible={enabled}
-        onRequestClose={() => {}}>
+        onRequestClose={() => {
+          toggle('toggleCalendar', false);
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.itens}>
             <CalendarComponent

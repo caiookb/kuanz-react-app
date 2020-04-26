@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
 export default StyleSheet.create({
   datepicker: {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
@@ -12,8 +11,8 @@ export default StyleSheet.create({
     color: 'white',
   },
   content: {
-    flex: 1,
     width: '100%',
+    marginTop: 5,
     flexDirection: 'row',
   },
   image: {
@@ -42,6 +41,7 @@ export default StyleSheet.create({
     elevation: 5,
   },
   itens: {
-    marginBottom: 20,
+    backgroundColor: 'white',
+    paddingBottom: 20,
   },
 });

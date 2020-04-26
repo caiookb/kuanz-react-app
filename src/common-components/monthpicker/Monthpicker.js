@@ -110,7 +110,11 @@ const MonthModal = props => {
               <HandleMonth handleDate={handleDate} month={month} />
             </View>
             <View style={styles.button}>
-              <CustomButton color={Colors.fourth} title={'Confirmar'} />
+              <CustomButton
+                color={Colors.primary}
+                title={'Confirmar'}
+                onPress={() => handleMonthModal()}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>

@@ -30,7 +30,7 @@ export default StyleSheet.create({
   },
   modalView: {
     margin: 10,
-    backgroundColor: Colors.third,
+    backgroundColor: 'white',
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {
@@ -44,14 +44,14 @@ export default StyleSheet.create({
   yearView: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: Colors.third,
+    backgroundColor: 'white',
     alignItems: 'center',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     paddingVertical: 15,
   },
   yearText: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
   },
   monthView: {
@@ -69,14 +69,14 @@ export default StyleSheet.create({
   },
   monthText: {
     marginTop: 5,
-    color: 'white',
+    color: 'black',
     paddingHorizontal: 15,
     paddingBottom: 10,
-    borderBottomColor: Colors.fourth,
+    borderBottomColor: 'white',
     borderBottomWidth: 2,
   },
   monthSelected: {
-    borderBottomColor: Colors.secondary,
+    borderBottomColor: 'black',
     borderBottomWidth: 4,
   },
   button: {
