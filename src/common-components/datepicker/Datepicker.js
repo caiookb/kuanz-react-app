@@ -27,7 +27,7 @@ const Datepicker = props => {
           <TouchableOpacity
             style={styles.image}
             onPress={() => {
-              toggle('toggleCalendar', true);
+              toggle(true);
             }}>
             <Text style={styles.label}>{convertDay(day)}</Text>
           </TouchableOpacity>
@@ -39,15 +39,11 @@ const Datepicker = props => {
         transparent={true}
         visible={enabled}
         onRequestClose={() => {
-          toggle('toggleCalendar', false);
+          toggle(false);
         }}>
         <View style={styles.centeredView}>
           <View style={styles.itens}>
-            <CalendarComponent
-              day={day}
-              handleDaySelected={setDay}
-              type={type}
-            />
+            <CalendarComponent day={day} handleDaySelected={setDay} />
           </View>
 
           <View style={styles.itens}>
@@ -55,7 +51,7 @@ const Datepicker = props => {
               color={Colors.fifth}
               title={'Confirmar'}
               onPress={() => {
-                toggle('toggleCalendar', false);
+                toggle(false);
               }}
             />
           </View>
