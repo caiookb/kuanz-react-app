@@ -67,11 +67,8 @@ class SignUp extends Component {
 
   sendForm = async () => {
     const {history, signUp} = this.props;
-    console.log('Chamando SENDFORM()');
     const user = await this.isFormValid();
-    console.log('user criado pelo isFormValid()', user);
     const req = await signUp(user);
-    console.log('Requisição feita pelo signUp()', req);
 
     if (!req.error) {
       history.push('/goalsFlow');
@@ -94,7 +91,6 @@ class SignUp extends Component {
     } = this.state;
     return (
       <View style={styles.page}>
-        <View style={styles.nav} />
         {error ? (
           <View style={styles.errorView}>
             <Text style={styles.errorMessage}>{error}</Text>
