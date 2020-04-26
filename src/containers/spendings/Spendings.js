@@ -8,13 +8,13 @@ import {
   Spinner,
   CheckBox,
   UpperNav,
-  CalendarModal,
   Datepicker,
   Repeat,
+  Tag,
 } from '../../common-components';
 import {configLocalCalendar} from '../../common-components/calendar/Calendar';
 import {Colors} from '../../assets/colors';
-import {SpendingsController} from '../../libs/controllers';
+import {SpendingsController, TagsController} from '../../libs/controllers';
 import styles from './styles';
 import moment from 'moment';
 
@@ -34,6 +34,11 @@ class Spendings extends Component {
     fetching: false,
     toggleCalendar: false,
     togglePeriod: false,
+  };
+
+  componentDidMount = () => {
+    const {fetchTags} = this.props;
+    fetchTags();
   };
 
   isFormValid = async () => {
@@ -62,6 +67,7 @@ class Spendings extends Component {
 
       const spendingRepeat = {...spending, repeat: repeatTimes, period};
       this.setState({fetching: true});
+      console.log('spendingssss', spending, spendingRepeat);
       return repeat ? spendingRepeat : spending;
     }
   };
@@ -70,7 +76,6 @@ class Spendings extends Component {
     const {history, createSpending} = this.props;
     const spending = await this.isFormValid();
     const req = await createSpending(spending);
-    console.log('REQ', req);
     if (!req.error) {
       history.push('/dashboard');
     } else {
@@ -147,7 +152,7 @@ class Spendings extends Component {
       error,
     } = this.state;
 
-    const {history} = this.props;
+    const {history, tag} = this.props;
 
     return (
       <View style={styles.container}>
@@ -191,18 +196,7 @@ class Spendings extends Component {
             />
           </View>
           <View style={styles.inputView}>
-            <TextInput
-              value={type}
-              type={'custom'}
-              label={'Marcação'}
-              maskOptions={{
-                mask: '************',
-              }}
-              maskInputProps={{
-                placeholder: '',
-                onChangeText: text => this.handleState('type', text),
-              }}
-            />
+            <Tag handleState={this.handleState} tagValue={type} tags={tag} />
           </View>
           <View style={styles.doubleView}>
             <Datepicker
@@ -256,13 +250,19 @@ class Spendings extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  const {tag} = state;
+  return state;
+};
+
 const mapDispatchToProps = dispatch => ({
   createSpending: data => SpendingsController.createSpending(dispatch, data),
+  fetchTags: () => TagsController.getAllTags(dispatch),
 });
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   )(Spendings),
 );

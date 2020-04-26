@@ -15,7 +15,6 @@ import {Colors} from '../../assets/colors';
 
 const Monthpicker = props => {
   const {enabled, handleMonthModal, date, handleDate} = props;
-  console.log(props);
   return (
     <View style={[styles.container, styles.shadow]}>
       <TouchableOpacity

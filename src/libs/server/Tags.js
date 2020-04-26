@@ -13,7 +13,7 @@ export const getTags = token => {
   return fetchServer({
     method: 'GET',
     path: ['tags', 'list'],
-    body,
+    body: '',
     auth: token,
   });
 };

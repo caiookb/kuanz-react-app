@@ -1,5 +1,6 @@
 import {Tags} from '../server';
 import {StoreController} from '../controllers';
+import {TagsActions} from '../redux/actions';
 
 export const createDefaultTags = token => {
   return Tags.createDefaultTags(token)
@@ -13,10 +14,26 @@ export const createDefaultTags = token => {
     });
 };
 
+export const createTag = data => {
+  const dispatch = StoreController.dispatch();
+  const token = StoreController.getUserToken();
+  return Tags.createTag({name: data}, token)
+    .then(res => {
+      if (!res.error) {
+        saveSpendingsOnRedux(dispatch, res);
+      }
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
 export const getAllTags = async dispatch => {
   const token = StoreController.getUserToken();
   return Tags.getTags(token)
     .then(tags => {
+      console.log('TAGGGGGGGGS', tags);
       saveSpendingsOnRedux(dispatch, tags);
     })
     .catch(err => {
@@ -24,6 +41,7 @@ export const getAllTags = async dispatch => {
     });
 };
 
-export const saveSpendingsOnRedux = (dispatch, spendings) => {
-  return dispatch(SpendingsActions.updateSpendings(spendings));
+export const saveSpendingsOnRedux = (dispatch, tags) => {
+  console.log('TAGS NO ACTION', tags);
+  return dispatch(TagsActions.updateTags(tags));
 };

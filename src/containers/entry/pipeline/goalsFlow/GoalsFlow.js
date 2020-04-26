@@ -1,19 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, BackHandler, Image} from 'react-native';
-import {CustomButton, Spinner} from '../../../../common-components';
+import {CustomButton, Spinner, Datepicker} from '../../../../common-components';
 import {TextInput} from '../../../../common-components';
 import styles from './styles';
 import {Colors} from '../../../../assets/colors';
 import {done} from '../../../../assets/images';
 import * as GoalsController from './controller';
+import moment from 'moment';
 
 class GoalsFlow extends Component {
   state = {
     name: '',
-    estimated_date: '20202020',
+    estimated_date: moment().format('YYYY-MM-DD'),
     error: undefined,
     formValid: false,
+    toggleCalendar: false,
     isFetching: false,
     reqSuccess: false,
   };
@@ -29,17 +31,6 @@ class GoalsFlow extends Component {
   handleGoBack = () => {
     alert('Você não pode voltar, por favor siga o cadastro');
     return true;
-  };
-
-  onChangeInput = (text, type) => {
-    switch (type) {
-      case 'name':
-        this.setState({name: text});
-        break;
-      case 'estimated_date':
-        this.setState({estimated_date: text});
-        break;
-    }
   };
 
   isFormValid = async () => {
@@ -67,70 +58,66 @@ class GoalsFlow extends Component {
     }
   };
 
+  handleState = (type, value) => {
+    console.log('Value', value, type);
+    switch (type) {
+      case 'name':
+        this.setState({name: value});
+        break;
+      case 'day':
+        this.setState({estimated_date: value});
+        break;
+      case 'toggleCalendar':
+        this.setState({toggleCalendar: value});
+        break;
+    }
+  };
+
   render() {
-    const {name, estimated_date, reqSuccess, isFetching} = this.state;
+    const {
+      name,
+      estimated_date,
+      toggleCalendar,
+      reqSuccess,
+      isFetching,
+    } = this.state;
     return (
       <View style={styles.container}>
-        {!reqSuccess ? (
-          <React.Fragment>
-            <View style={styles.nav} />
-            <View style={styles.content}>
-              <Text style={styles.textTitle}>
-                {
-                  'Salve alguns dos seus motivos, isso vai te ajudar a seguir o objetivo'
-                }
-              </Text>
-              <View style={styles.card}>
-                <View style={styles.inputView}>
-                  <TextInput
-                    value={name}
-                    type={'custom'}
-                    label={'Objetivo'}
-                    maskOptions={{
-                      mask: '*******************************************',
-                    }}
-                    maskInputProps={{
-                      placeholder: '',
-                      onChangeText: text => this.onChangeInput(text, 'name'),
-                    }}
-                  />
-                </View>
-                <View style={styles.inputView}>
-                  <TextInput
-                    value={estimated_date}
-                    type={'custom'}
-                    label={'Data estimada'}
-                    maskOptions={{
-                      mask: '99/99/9999',
-                    }}
-                    maskInputProps={{
-                      placeholder: '',
-                      onChangeText: text =>
-                        this.onChangeInput(text, 'estimated_date'),
-                    }}
-                  />
-                </View>
-              </View>
-            </View>
-
-            <View style={styles.fixedBottom}>
-              <CustomButton
-                title={'CONFIRMAR'}
-                color={Colors.third}
-                onPress={() => this.sendForm()}
-              />
-            </View>
-          </React.Fragment>
-        ) : isFetching ? (
-          <Spinner />
-        ) : (
-          <View style={styles.success}>
-            <Text style={styles.successText}>
-              {'Objetivo cadastrado com sucesso!'}
-            </Text>
-            <Image style={styles.cardImageInfo} source={done} />
+        <View style={styles.content}>
+          <Text style={styles.textTitle}>
+            {
+              'Salve alguns dos seus motivos, isso vai te ajudar a seguir o objetivo'
+            }
+          </Text>
+          <View style={styles.inputView}>
+            <TextInput
+              value={name}
+              type={'custom'}
+              label={'Objetivo'}
+              maskOptions={{
+                mask: '*******************************************',
+              }}
+              maskInputProps={{
+                placeholder: '',
+                onChangeText: text => this.handleState('name', text),
+              }}
+            />
           </View>
-        )}
+          <View style={styles.datepicker}>
+            <Datepicker
+              day={estimated_date}
+              setDay={this.handleState}
+              enabled={toggleCalendar}
+              type={'day'}
+              toggle={this.handleState}
+            />
+          </View>
+        </View>
+        <CustomButton
+          title={'CONFIRMAR'}
+          color={Colors.third}
+          onPress={() => this.sendForm()}
+        />
       </View>
     );
   }

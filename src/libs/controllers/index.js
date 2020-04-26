@@ -5,6 +5,7 @@ import * as IncomesController from './Incomes';
 import * as SpendingsController from './Spendings';
 import * as CalendarController from './Calendar';
 import * as StoreController from './Store';
+import * as TagsController from './Tags';
 
 export {
   EntryController,
@@ -14,4 +15,5 @@ export {
   SpendingsController,
   CalendarController,
   StoreController,
+  TagsController,
 };

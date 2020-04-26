@@ -38,12 +38,10 @@ export default StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.9)',
   },
   modalView: {
-    margin: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -52,20 +50,36 @@ export default StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 24,
+    borderRadius: 10,
+    backgroundColor: Colors.primary,
     flexDirection: 'column',
+    maxHeight: 500,
+    overflow: 'hidden',
   },
   modalList: {
     flexDirection: 'row',
+    marginLeft: 15,
+    width: '90%',
     backgroundColor: Colors.primary,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.fifth,
   },
   modalTag: {
-    margin: 10,
+    marginTop: 15,
+    marginRight: 15,
   },
   modalText: {
     margin: 10,
     color: 'white',
     fontSize: 22,
+  },
+  addNewView: {
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: Colors.third,
+    paddingVertical: 10,
+  },
+  inputView: {
+    marginTop: 10,
   },
 });

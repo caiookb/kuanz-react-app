@@ -15,3 +15,7 @@ export const date = () => {
   const {calendarDate} = StoreData();
   return calendarDate;
 };
+
+export const dispatch = () => {
+  return store.dispatch;
+};

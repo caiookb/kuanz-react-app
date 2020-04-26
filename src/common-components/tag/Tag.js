@@ -1,10 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Modal,
+  ScrollView,
+} from 'react-native';
 import styles from './styles';
-import {tag, arrow} from '../../assets/images';
+import {tag, arrow, add} from '../../assets/images';
+import {TextInput} from '../';
+import {CustomButton} from '../buttons/buttons';
+import {Colors} from '../../assets/colors';
+import {TagsController} from '../../libs/controllers';
 
 const Tag = props => {
-  const {handleState, tagValue, label} = props;
+  const {handleState, tagValue, tags} = props;
   const [modal, setModal] = useState(false);
 
   return (
@@ -23,13 +34,15 @@ const Tag = props => {
           <Image style={styles.downArrow} source={arrow} />
         </TouchableOpacity>
       </View>
-      {modal ? <TagModal setModal={setModal} /> : null}
+      {modal ? (
+        <TagModal setModal={setModal} tags={tags} handleState={handleState} />
+      ) : null}
     </View>
   );
 };
 
 const TagModal = props => {
-  const {enabled, setModal, period, handleModal} = props;
+  const {enabled, setModal, tags, handleState} = props;
   return (
     <Modal
       animationType="fade"
@@ -39,30 +52,59 @@ const TagModal = props => {
         setModal(false);
       }}>
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <TouchableOpacity style={styles.modalList}>
-            <Image style={styles.modalTag} source={tag} />
-            <Text style={styles.modalText}>Alimentação</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalList}>
-            <Image style={styles.modalTag} source={tag} />
-            <Text style={styles.modalText}>Alimentação</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalList}>
-            <Image style={styles.modalTag} source={tag} />
-            <Text style={styles.modalText}>Alimentação</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalList}>
-            <Image style={styles.modalTag} source={tag} />
-            <Text style={styles.modalText}>Alimentação</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalList}>
-            <Image style={styles.modalTag} source={tag} />
-            <Text style={styles.modalText}>Alimentação</Text>
-          </TouchableOpacity>
-        </View>
+        <ScrollView style={styles.modalView}>
+          {tags.map(tagName => {
+            return (
+              <TouchableOpacity
+                style={styles.modalList}
+                onPress={() => {
+                  handleState('type', tagName);
+                  setModal(false);
+                }}>
+                <Image style={styles.modalTag} source={tag} />
+                <Text style={styles.modalText}>{tagName}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
+        <AddNewTag setModal={setModal} />
       </View>
     </Modal>
+  );
+};
+
+const AddNewTag = props => {
+  const {setModal} = props;
+  const [tagName, setTagName] = useState('');
+  const [displayInput, triggerInput] = useState(false);
+  return !displayInput ? (
+    <TouchableOpacity
+      style={styles.addNewView}
+      onPress={() => triggerInput(true)}>
+      <Image style={{marginRight: 20}} source={add} />
+      <Text style={styles.touchableText}>Nova marcação</Text>
+    </TouchableOpacity>
+  ) : (
+    <View style={styles.inputView}>
+      <TextInput
+        value={tagName}
+        type={'custom'}
+        label={'Insira o nome da sua nova marcação'}
+        maskInputProps={{
+          placeholder: '',
+          onChangeText: text => setTagName(text),
+        }}
+        typeOf={'value'}
+      />
+      <CustomButton
+        color={Colors.third}
+        onPress={() => {
+          TagsController.createTag(tagName);
+          triggerInput(false);
+        }}
+        title={'Adicionar'}
+      />
+    </View>
   );
 };
 

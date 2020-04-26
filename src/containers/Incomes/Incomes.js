@@ -8,12 +8,13 @@ import {
   Spinner,
   CheckBox,
   UpperNav,
-  CalendarModal,
   Datepicker,
+  Repeat,
+  Tag,
 } from '../../common-components';
 import {configLocalCalendar} from '../../common-components/calendar/Calendar';
 import {Colors} from '../../assets/colors';
-import {IncomesController} from '../../libs/controllers';
+import {IncomesController, TagsController} from '../../libs/controllers';
 import styles from './styles';
 import moment from 'moment';
 
@@ -26,17 +27,31 @@ class Incomes extends Component {
     type: undefined,
     received: true,
     receiveDate: moment().format('YYYY-MM-DD'),
+    repeat: false,
+    repeatTimes: 0,
+    period: 'Semanal',
     error: '',
     fetching: false,
     toggleCalendar: false,
+    togglePeriod: false,
   };
 
   componentDidMount = () => {
-    const {history} = this.props;
+    const {fetchTags} = this.props;
+    fetchTags();
   };
 
   isFormValid = async () => {
-    const {name, value, type, received, receiveDate} = this.state;
+    const {
+      name,
+      value,
+      type,
+      received,
+      receiveDate,
+      repeat,
+      repeatTimes,
+      period,
+    } = this.state;
     if (!name && !value && !type && !receiveDate && !received) {
       this.setState({error: 'Preencha todos os campos!'});
       return false;
@@ -49,8 +64,10 @@ class Incomes extends Component {
         received,
         receiveDate,
       };
+      const incomeRepeat = {...income, repeat: repeatTimes, period};
       this.setState({fetching: true});
-      return income;
+      console.log('INCOME REPEAT', incomeRepeat);
+      return repeat ? incomeRepeat : income;
     }
   };
 
@@ -61,17 +78,13 @@ class Incomes extends Component {
       .split('.')
       .join('')
       .replace(',', '.');
-
-    console.log('clean value', cleanValue);
     return parseFloat(cleanValue && cleanValue.replace('R$', ''));
   };
 
   sendForm = async () => {
     const {history, createIncome} = this.props;
     const income = await this.isFormValid();
-    console.log('INCOME INDO PRA REQ', income);
     const req = await createIncome(income);
-    console.log('Requisição feita pelo sendForm', req);
     if (!req.error) {
       history.push('/dashboard');
     } else {
@@ -81,36 +94,8 @@ class Incomes extends Component {
     }
   };
 
-  onChangeInput = (text, type) => {
-    switch (type) {
-      case 'name':
-        this.setState({name: text});
-        break;
-      case 'value':
-        this.setState({value: text});
-        break;
-      case 'type':
-        this.setState({type: text});
-        break;
-      case 'received':
-        this.setState({received: text});
-        break;
-      case 'receiveDate':
-        this.setState({receiveDate: text});
-        break;
-    }
-  };
-
-  handleCheckBox = () => {
-    const {received} = this.state;
-    if (received) {
-      this.setState({received: false});
-    } else {
-      this.setState({received: true});
-    }
-  };
-
   handleState = (type, value) => {
+    const {repeatTimes, repeat, received} = this.state;
     switch (type) {
       case 'day':
         this.setState({receiveDate: value});
@@ -121,12 +106,34 @@ class Incomes extends Component {
       case 'togglePeriod':
         this.setState({togglePeriod: value});
         break;
+      case 'period':
+        this.setState({period: value, togglePeriod: false});
+        break;
+      case 'sum':
+        this.setState({repeatTimes: repeatTimes + 1});
+        break;
+      case 'name':
+        this.setState({name: value});
+        break;
+      case 'value':
+        this.setState({value: value});
+        break;
+      case 'type':
+        this.setState({type: value});
+        break;
+      case 'repeat':
+        this.setState({repeat: !repeat ? true : false, repeatTimes: 2});
+        break;
+      case 'paid':
+        this.setState({received: !received ? true : false});
+        break;
+      case 'subtract':
+        this.setState({
+          repeatTimes: repeatTimes > 2 ? repeatTimes - 1 : repeatTimes,
+        });
+        break;
     }
   };
-
-  handleDaySelected = date => {};
-
-  toggleCalendarModal = trigger => {};
 
   render() {
     const {
@@ -137,10 +144,14 @@ class Incomes extends Component {
       receiveDate,
       fetching,
       toggleCalendar,
+      repeat,
+      repeatTimes,
+      period,
+      togglePeriod,
       error,
     } = this.state;
 
-    const {history} = this.props;
+    const {history, tag} = this.props;
 
     return (
       <View style={styles.container}>
@@ -164,7 +175,7 @@ class Incomes extends Component {
               label={'Valor da receita'}
               maskInputProps={{
                 placeholder: '',
-                onChangeText: text => this.onChangeInput(text, 'value'),
+                onChangeText: text => this.handleState('value', text),
               }}
               typeOf={'value'}
             />
@@ -179,9 +190,12 @@ class Incomes extends Component {
               }}
               maskInputProps={{
                 placeholder: '',
-                onChangeText: text => this.onChangeInput(text, 'name'),
+                onChangeText: text => this.handleState('name', text),
               }}
             />
+          </View>
+          <View style={styles.inputView}>
+            <Tag handleState={this.handleState} tagValue={type} tags={tag} />
           </View>
           <View style={styles.doubleView}>
             <Datepicker
@@ -193,24 +207,29 @@ class Incomes extends Component {
             />
             <CheckBox
               enable={received}
-              onPress={this.handleCheckBox}
-              title={'Recebido'}
+              onPress={() => {
+                this.handleState('paid');
+              }}
+              title={'Pago'}
+            />
+            <CheckBox
+              enable={repeat}
+              onPress={() => {
+                this.handleState('repeat');
+              }}
+              title={'Repetir'}
             />
           </View>
-          <View style={styles.inputView}>
-            <TextInput
-              value={type}
-              type={'custom'}
-              label={'Marcação'}
-              maskOptions={{
-                mask: '************',
-              }}
-              maskInputProps={{
-                placeholder: '',
-                onChangeText: text => this.onChangeInput(text, 'type'),
-              }}
-            />
-          </View>
+          {repeat ? (
+            <View style={styles.inputView}>
+              <Repeat
+                period={period}
+                enabled={togglePeriod}
+                repeatTimes={repeatTimes}
+                handleState={this.handleState}
+              />
+            </View>
+          ) : null}
         </KeyboardAvoidingView>
         {fetching ? (
           <View>
@@ -230,13 +249,19 @@ class Incomes extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  const {tag} = state;
+  return state;
+};
+
 const mapDispatchToProps = dispatch => ({
   createIncome: data => IncomesController.createIncome(dispatch, data),
+  fetchTags: () => TagsController.getAllTags(dispatch),
 });
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   )(Incomes),
 );

@@ -45,7 +45,6 @@ class SignUpInfo extends Component {
   };
 
   render() {
-    const {cards} = this.state;
     const {history} = this.props;
     console.log('card', history);
 
@@ -53,7 +52,6 @@ class SignUpInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.nav} />
         <View style={styles.content}>
           <Animated.View
             onLoad={this.fadeIn()}

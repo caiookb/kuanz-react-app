@@ -16,7 +16,6 @@ const convertDay = day => {
 
 const Datepicker = props => {
   const {toggle, enabled, day, setDay, type} = props;
-  console.log('ENABLE?', enabled);
   return (
     <React.Fragment>
       <View style={styles.datepicker}>

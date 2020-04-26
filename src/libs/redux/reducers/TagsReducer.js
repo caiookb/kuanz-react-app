@@ -1,18 +1,12 @@
 import {TagTypes} from '../types';
 
-const initialState = {
-  tags: [],
-};
+const initialState = {};
 
 export default (state = initialState, action) => {
   const {type, payload} = action;
-
   switch (type) {
     case TagTypes.UPDATE_TAG:
-      return {
-        ...state,
-        ...payload,
-      };
+      return payload;
     case TagTypes.UPDATE_TAG_FIELD:
       return {
         ...state,
