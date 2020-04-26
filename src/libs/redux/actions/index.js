@@ -6,6 +6,7 @@ import * as IncomesActions from './IncomesActions';
 import * as SpendingsActions from './SpendingsActions';
 import * as CalendarDateAction from './CalendarDateAction';
 import * as TagsActions from './TagActions';
+import * as GoalsActions from './GoalsActions';
 
 export {
   InteractionActions,
@@ -14,4 +15,5 @@ export {
   SpendingsActions,
   CalendarDateAction,
   TagsActions,
+  GoalsActions,
 };
