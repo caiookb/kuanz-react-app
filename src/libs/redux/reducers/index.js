@@ -4,6 +4,7 @@ import SessionReducer from './SessionReducer';
 import IncomesReducer from './IncomesReducer';
 import SpendingsReducer from './SpendingsReducer';
 import CalendarReducer from './CalendarDateReducer';
+import TagsReducer from './TagsReducer';
 
 export default combineReducers({
   interaction: InteractionReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   incomes: IncomesReducer,
   spendings: SpendingsReducer,
   calendarDate: CalendarReducer,
+  tag: TagsReducer,
 });
