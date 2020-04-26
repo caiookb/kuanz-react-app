@@ -74,7 +74,6 @@ const TagModal = props => {
 };
 
 const AddNewTag = props => {
-  const {setModal} = props;
   const [tagName, setTagName] = useState('');
   const [displayInput, triggerInput] = useState(false);
   return !displayInput ? (
