@@ -20,3 +20,4 @@ export const repeatRound = require('../../assets/icons/repeat.png');
 export const arrow = require('../../assets/icons/arrow.png');
 export const config = require('../../assets/icons/config.png');
 export const profile = require('../../assets/icons/profile.png');
+export const tag = require('../../assets/icons/tag.png');
