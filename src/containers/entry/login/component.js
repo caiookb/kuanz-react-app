@@ -47,13 +47,13 @@ class LoginComponent extends Component {
   };
 
   sendForm = async () => {
-    const {history, signIn} = this.props;
+    const {navigation, signIn} = this.props;
     const isValid = await this.validator();
     if (isValid) {
       this.setSpinner(true);
       const req = await signIn(isValid);
       if (req && !req.error) {
-        history.push('/dashboard');
+        navigation.navigate('dashboard');
       } else {
         this.setSpinner(false);
         this.setState({error: req.error});

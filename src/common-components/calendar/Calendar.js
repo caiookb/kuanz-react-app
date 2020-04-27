@@ -37,14 +37,14 @@ export const configLocalCalendar = () => {
 };
 
 const CalendarComponent = props => {
-  const {enable, onDayPress, type, day, handleDaySelected} = props;
+  const {day, handleDaySelected} = props;
   let markedDay = {[day]: {selected: true, selectedColor: Colors.income}};
 
   return (
     <View>
       <Calendar
         onDayPress={day => {
-          handleDaySelected(type, day.dateString);
+          handleDaySelected(day.dateString);
         }}
         markedDates={markedDay}
       />

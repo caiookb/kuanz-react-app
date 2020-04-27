@@ -1,8 +1,8 @@
 import {IncomesTypes} from '../types';
 
 const initialState = {
-  allIncomes: null,
-  totalValue: null,
+  allIncomes: [],
+  totalValue: 0,
 };
 
 export default (state = initialState, action) => {

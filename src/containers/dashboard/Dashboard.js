@@ -5,6 +5,7 @@ import {
   AsyncStorage,
   TouchableHighlight,
   Image,
+  ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -15,9 +16,9 @@ import {
   IncomesController,
   SpendingsController,
 } from '../../libs/controllers';
-import {profile, config} from '../../assets/images.js';
+import {profile, config, incomesDot} from '../../assets/images.js';
 import moment from 'moment';
-import {saveIncomesOnRedux} from '../../libs/controllers/Incomes.js';
+import Transactions from '../transactions/Transactions.js';
 
 class Dashboard extends Component {
   state = {
@@ -32,8 +33,9 @@ class Dashboard extends Component {
   };
 
   handleNavButtons = route => {
-    const {history} = this.props;
-    history.push(`/${route}`, {});
+    const {navigation} = this.props;
+    console.log('route', route);
+    navigation.navigate(route);
   };
 
   handleMonthModal = () => {
@@ -70,19 +72,19 @@ class Dashboard extends Component {
   };
 
   logout = async () => {
-    const {history} = this.props;
+    const {navigation} = this.props;
     await AsyncStorage.removeItem('userToken');
-    history.replace('/entry');
+    navigation.navigate('entry');
   };
 
   render() {
     const {monthModal, date} = this.state;
-    const {incomesTotal, spendingsTotal} = this.props;
+    const {incomesTotal, spendingsTotal, allIncomes, allSpendings} = this.props;
 
     return (
       <View style={styles.container}>
         <View style={[styles.nav, styles.shadow]}>
-          <TouchableHighlight>
+          <TouchableHighlight onPress={() => this.logout()}>
             <Image source={profile} />
           </TouchableHighlight>
           <Monthpicker
@@ -96,7 +98,11 @@ class Dashboard extends Component {
           </TouchableHighlight>
         </View>
 
-        <View>
+        <ScrollView contentContainerStyle={styles.transactions}>
+          <Transactions />
+        </ScrollView>
+
+        <View style={styles.footer}>
           <FooterMenu
             incomes={incomesTotal}
             spendings={spendingsTotal}
@@ -111,12 +117,16 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   const {
     incomes,
-    incomes: {totalValue: incomesTotal},
     spendings,
+    incomes: {totalValue: incomesTotal},
     spendings: {totalValue: spendingsTotal},
   } = state;
-
-  return {incomes, incomesTotal, spendings, spendingsTotal};
+  return {
+    incomes,
+    incomesTotal,
+    spendings,
+    spendingsTotal,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({

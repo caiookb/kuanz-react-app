@@ -3,11 +3,13 @@ import {Incomes} from '../server';
 import {IncomesController, StoreController} from '../controllers';
 
 export const createIncome = (dispatch, data) => {
-  return Incomes.postIncome(data)
+  const date = StoreController.date();
+  const token = StoreController.getUserToken();
+  return Incomes.postIncome(data, token, date.firstDate, date.lastDate)
     .then(res => {
       const {allIncomes, totalValue} = res;
       const incomesObject = {allIncomes, totalValue};
-      IncomesController.saveIncomesOnRedux(dispatch, incomesObject);
+      saveIncomesOnRedux(dispatch, incomesObject);
       return res;
     })
     .catch(err => {

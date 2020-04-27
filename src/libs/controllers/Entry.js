@@ -14,8 +14,8 @@ export const initializeData = async (dispatch, data) => {
 
 export const getEntryRoute = async userToken => {
   if (userToken) {
-    return '/dashboard';
+    return 'dashboard';
   } else if (!userToken) {
-    return '/entry';
+    return 'entry';
   }
 };

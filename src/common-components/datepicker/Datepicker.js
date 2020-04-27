@@ -1,4 +1,4 @@
-import React, {Component, version} from 'react';
+import React, {Component, version, useState} from 'react';
 import {View, Text, TouchableOpacity, Image, Modal} from 'react-native';
 import {calendar} from '../../assets/images';
 import styles from './styles';
@@ -15,7 +15,8 @@ const convertDay = day => {
 };
 
 const Datepicker = props => {
-  const {toggle, enabled, day, setDay, type} = props;
+  const {day, setDay, type} = props;
+  const [enabled, toggle] = useState(false);
   return (
     <React.Fragment>
       <View style={styles.datepicker}>
@@ -27,7 +28,7 @@ const Datepicker = props => {
           <TouchableOpacity
             style={styles.image}
             onPress={() => {
-              toggle('toggleCalendar', true);
+              toggle(true);
             }}>
             <Text style={styles.label}>{convertDay(day)}</Text>
           </TouchableOpacity>
@@ -38,14 +39,12 @@ const Datepicker = props => {
         animationType="slide"
         transparent={true}
         visible={enabled}
-        onRequestClose={() => {}}>
+        onRequestClose={() => {
+          toggle(false);
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.itens}>
-            <CalendarComponent
-              day={day}
-              handleDaySelected={setDay}
-              type={type}
-            />
+            <CalendarComponent day={day} handleDaySelected={setDay} />
           </View>
 
           <View style={styles.itens}>
@@ -53,7 +52,7 @@ const Datepicker = props => {
               color={Colors.fifth}
               title={'Confirmar'}
               onPress={() => {
-                toggle('toggleCalendar', false);
+                toggle(false);
               }}
             />
           </View>

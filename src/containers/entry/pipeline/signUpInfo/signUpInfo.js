@@ -45,15 +45,12 @@ class SignUpInfo extends Component {
   };
 
   render() {
-    const {cards} = this.state;
-    const {history} = this.props;
-    console.log('card', history);
+    const {navigation} = this.props;
 
     const animatedStyle = [];
 
     return (
       <View style={styles.container}>
-        <View style={styles.nav} />
         <View style={styles.content}>
           <Animated.View
             onLoad={this.fadeIn()}
@@ -98,7 +95,7 @@ class SignUpInfo extends Component {
           <CustomButton
             title={'VAMOS LÁ'}
             color={Colors.third}
-            onPress={() => history.push('/signUp')}
+            onPress={() => navigation.navigate('signUp')}
           />
         </View>
       </View>

@@ -49,7 +49,7 @@ const BalanceStats = props => {
           ? spendings
           : title === 'Receita'
           ? incomes
-          : incomes - spendings}
+          : (incomes - spendings).toFixed(2)}
       </Text>
     </View>
   );

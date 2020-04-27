@@ -15,7 +15,6 @@ import {Colors} from '../../assets/colors';
 
 const Monthpicker = props => {
   const {enabled, handleMonthModal, date, handleDate} = props;
-  console.log(props);
   return (
     <View style={[styles.container, styles.shadow]}>
       <TouchableOpacity
@@ -110,7 +109,11 @@ const MonthModal = props => {
               <HandleMonth handleDate={handleDate} month={month} />
             </View>
             <View style={styles.button}>
-              <CustomButton color={Colors.fourth} title={'Confirmar'} />
+              <CustomButton
+                color={Colors.primary}
+                title={'Confirmar'}
+                onPress={() => handleMonthModal()}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>

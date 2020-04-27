@@ -19,10 +19,6 @@ class SignUp extends Component {
     fetching: false,
   };
 
-  componentDidMount = () => {
-    const {history} = this.props;
-  };
-
   onChangeInput = (text, type) => {
     switch (type) {
       case 'name':
@@ -66,15 +62,12 @@ class SignUp extends Component {
   };
 
   sendForm = async () => {
-    const {history, signUp} = this.props;
-    console.log('Chamando SENDFORM()');
+    const {navigation, signUp} = this.props;
     const user = await this.isFormValid();
-    console.log('user criado pelo isFormValid()', user);
     const req = await signUp(user);
-    console.log('Requisição feita pelo signUp()', req);
 
     if (!req.error) {
-      history.push('/goalsFlow');
+      navigation.navigate('goalsFlow');
     } else {
       setTimeout(() => {
         this.setState({error: req.error, fetching: false});
@@ -94,7 +87,6 @@ class SignUp extends Component {
     } = this.state;
     return (
       <View style={styles.page}>
-        <View style={styles.nav} />
         {error ? (
           <View style={styles.errorView}>
             <Text style={styles.errorMessage}>{error}</Text>
