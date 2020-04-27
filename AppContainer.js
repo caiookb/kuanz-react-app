@@ -26,7 +26,7 @@ class AppContainer extends Component {
 
   render = () => {
     const {initScreen} = this.props;
-    return [<Main key="main" screen={initScreen} />, <Modals key="modal" />];
+    return <Main key="main" screen={initScreen} />;
   };
 }
 
