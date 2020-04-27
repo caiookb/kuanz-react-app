@@ -1,6 +1,44 @@
 import {SpendingsActions} from '../redux/actions';
 import {Spendings} from '../server';
-import {SpendingsController, StoreController} from '../controllers';
+import {StoreController} from '../controllers';
+
+import {SpendingsController} from '../../libs/controllers';
+
+const isFormValid = (form, handles) => {
+  const {name, value, type, paid, paidDate, repeat, repeatTimes, period} = form;
+  const {setError, setFetching} = handles;
+
+  if (!name && !value && !type && !paid && !paidDate) {
+    setError('Preencha todos os campos!');
+    return false;
+  } else {
+    setFetching(true);
+    const spending = {
+      name,
+      value: handleValue(),
+      type,
+      paid,
+      paidDate,
+    };
+    const spendingRepeat = {...spending, repeat: repeatTimes, period};
+    console.log('spending to send', spending, spendingRepeat);
+    return repeat ? spendingRepeat : spending;
+  }
+};
+
+export const sendForm = (form, handles) => {
+  const spending = isFormValid(form, handles);
+  console.log('SPENDING', spending);
+};
+
+const handleValue = () => {
+  const {value} = this.state;
+  const cleanValue = value
+    .split('.')
+    .join('')
+    .replace(',', '.');
+  return parseFloat(cleanValue && cleanValue.replace('R$', ''));
+};
 
 export const createSpending = (dispatch, data) => {
   const date = StoreController.date();
@@ -17,7 +55,7 @@ export const createSpending = (dispatch, data) => {
     });
 };
 
-export const fetchAllSpendings = async (dispatch, tokinho) => {
+export const fetchAllSpendings = (dispatch, tokinho) => {
   const date = StoreController.date();
   const token = StoreController.getUserToken();
   return Spendings.getAllSpendings(date.firstDate, date.lastDate, token)
