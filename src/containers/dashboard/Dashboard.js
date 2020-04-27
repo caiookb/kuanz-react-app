@@ -18,7 +18,6 @@ import {
 } from '../../libs/controllers';
 import {profile, config, incomesDot} from '../../assets/images.js';
 import moment from 'moment';
-import {saveIncomesOnRedux} from '../../libs/controllers/Incomes.js';
 import Transactions from '../transactions/Transactions.js';
 
 class Dashboard extends Component {
@@ -34,8 +33,9 @@ class Dashboard extends Component {
   };
 
   handleNavButtons = route => {
-    const {history} = this.props;
-    history.push(`/${route}`, {});
+    const {navigation} = this.props;
+    console.log('route', route);
+    navigation.navigate(route);
   };
 
   handleMonthModal = () => {
@@ -72,9 +72,9 @@ class Dashboard extends Component {
   };
 
   logout = async () => {
-    const {history} = this.props;
+    const {navigation} = this.props;
     await AsyncStorage.removeItem('userToken');
-    history.replace('/entry');
+    navigation.navigate('entry');
   };
 
   render() {

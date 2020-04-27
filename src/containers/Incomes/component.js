@@ -20,7 +20,7 @@ import moment from 'moment';
 configLocalCalendar();
 
 const IncomesComponent = props => {
-  const {tag} = props;
+  const {tag, navigation} = props;
   const [name, setName] = useState('');
   const [value, setValue] = useState(0);
   const [type, setType] = useState('Alimentação');
@@ -52,7 +52,7 @@ const IncomesComponent = props => {
         title={'Adicionar uma nova receita'}
         color={Colors.income}
         onPress={() => {
-          history.goBack();
+          navigation.goBack();
         }}
       />
 
@@ -119,7 +119,7 @@ const IncomesComponent = props => {
         title={'Adicionar receita'}
         color={Colors.income}
         onPress={() => {
-          sendForm(form, handles);
+          sendForm(form, handles, navigation);
         }}
         type={'single'}
       />

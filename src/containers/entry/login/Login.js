@@ -6,14 +6,10 @@ class Login extends Component {
     teste: 1,
   };
 
-  componentDidMount = () => {
-    const {history} = this.props;
-  };
-
   render() {
-    const {history} = this.props;
+    const {navigation} = this.props;
 
-    return <LoginComponent history={history} />;
+    return <LoginComponent navigation={navigation} />;
   }
 }
 

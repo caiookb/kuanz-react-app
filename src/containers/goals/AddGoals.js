@@ -13,8 +13,7 @@ import {done} from '../../assets/images';
 import moment from 'moment';
 
 const AddGoals = props => {
-  const {history} = props;
-  console.log('history no add goals', history);
+  const {navigation} = props;
   const [name, setName] = useState(null);
   const [value, setValue] = useState(0);
   const [description, setDescription] = useState(null);
@@ -94,7 +93,7 @@ const AddGoals = props => {
           <CustomButton
             title={'CONFIRMAR'}
             color={Colors.third}
-            onPress={() => GoalsController.sendForm(form, handles, history)}
+            onPress={() => GoalsController.sendForm(form, handles, navigation)}
           />
         </React.Fragment>
       ) : fecthing ? (

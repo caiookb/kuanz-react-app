@@ -21,7 +21,7 @@ const isFormValid = (form, handles) => {
   }
 };
 
-export const sendForm = (form, handles) => {
+export const sendForm = (form, handles, navigation) => {
   const dispatch = StoreController.dispatch();
   const {setError, setFetching} = handles;
   const spending = isFormValid(form, handles);
@@ -29,7 +29,7 @@ export const sendForm = (form, handles) => {
   if (spending) {
     SpendingsController.createSpending(dispatch, spending).then(() => {
       setFetching(false);
-      //Navigate back to dashboard
+      navigation.goBack();
     });
   }
 };

@@ -19,10 +19,6 @@ class SignUp extends Component {
     fetching: false,
   };
 
-  componentDidMount = () => {
-    const {history} = this.props;
-  };
-
   onChangeInput = (text, type) => {
     switch (type) {
       case 'name':
@@ -66,12 +62,12 @@ class SignUp extends Component {
   };
 
   sendForm = async () => {
-    const {history, signUp} = this.props;
+    const {navigation, signUp} = this.props;
     const user = await this.isFormValid();
     const req = await signUp(user);
 
     if (!req.error) {
-      history.push('/goalsFlow');
+      navigation.navigate('goalsFlow');
     } else {
       setTimeout(() => {
         this.setState({error: req.error, fetching: false});

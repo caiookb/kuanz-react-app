@@ -39,7 +39,7 @@ const handleValue = value => {
   return parseFloat(cleanValue && cleanValue.replace('R$', ''));
 };
 
-export const sendForm = (form, handles) => {
+export const sendForm = (form, handles, navigation) => {
   const dispatch = StoreController.dispatch();
   const {setError, setFetching} = handles;
   const income = isFormValid(form, handles);
@@ -47,6 +47,7 @@ export const sendForm = (form, handles) => {
   if (income) {
     IncomesController.createIncome(dispatch, income).then(() => {
       setFetching(false);
+      navigation.goBack();
       //Navigate back to dashboard
     });
   }

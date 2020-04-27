@@ -41,9 +41,8 @@ class Goals extends Component {
   };
 
   render() {
-    const {history} = this.props;
-    console.log('history no goals', history);
-    return <AddGoals history={history} />;
+    const {navigation} = this.props;
+    return <AddGoals navigation={navigation} />;
   }
 }
 

@@ -20,7 +20,7 @@ import moment from 'moment';
 configLocalCalendar();
 
 const SpendingComponent = props => {
-  const {tag} = props;
+  const {tag, navigation} = props;
   const [name, setName] = useState(undefined);
   const [value, setValue] = useState(0);
   const [type, setType] = useState(undefined);
@@ -41,7 +41,7 @@ const SpendingComponent = props => {
         title={'Adicionar uma nova despesa'}
         color={Colors.spending}
         onPress={() => {
-          history.goBack();
+          navigation.goBack();
         }}
       />
 
@@ -105,7 +105,7 @@ const SpendingComponent = props => {
         color={Colors.spending}
         onPress={() => {
           console.log('PUCK');
-          sendForm(form, handles);
+          sendForm(form, handles, navigation);
         }}
       />
     </View>

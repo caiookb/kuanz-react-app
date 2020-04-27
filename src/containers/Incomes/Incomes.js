@@ -15,8 +15,8 @@ class Incomes extends Component {
   };
 
   render() {
-    const {tag} = this.props;
-    return <IncomesComponent tag={tag} />;
+    const {tag, navigation} = this.props;
+    return <IncomesComponent navigation={navigation} tag={tag} />;
   }
 }
 

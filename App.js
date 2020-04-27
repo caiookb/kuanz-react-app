@@ -10,7 +10,7 @@ class App extends Component {
   state = {
     isLogged: false,
     loading: true,
-    status: '/entry',
+    status: 'entry',
     error: false,
   };
 

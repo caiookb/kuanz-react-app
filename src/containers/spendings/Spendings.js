@@ -16,8 +16,8 @@ class Spendings extends Component {
   };
 
   render() {
-    const {tag} = this.props;
-    return <SpendingComponent tag={tag} />;
+    const {tag, navigation} = this.props;
+    return <SpendingComponent navigation={navigation} tag={tag} />;
   }
 }
 

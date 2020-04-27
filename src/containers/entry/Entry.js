@@ -8,7 +8,7 @@ class EntryComponent extends Component {
   state = {};
 
   render() {
-    const {history} = this.props;
+    const {navigation} = this.props;
     return (
       <React.Fragment>
         <View style={styles.container}>
@@ -17,12 +17,12 @@ class EntryComponent extends Component {
             <CustomButton
               title={'ENTRAR'}
               color={Colors.secondary}
-              onPress={() => history.push('/login')}
+              onPress={() => navigation.navigate('login')}
             />
             <CustomButton
               title={'CADASTRE-SE'}
               color={Colors.third}
-              onPress={() => history.push('/signupinfo')}
+              onPress={() => navigation.navigate('signupinfo')}
             />
           </View>
         </View>

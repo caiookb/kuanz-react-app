@@ -43,7 +43,7 @@ const isFormValid = (form, handles) => {
   }
 };
 
-export const sendForm = (form, handles, history) => {
+export const sendForm = (form, handles, navigation) => {
   const dispatch = StoreController.dispatch();
   const {setSuccess, setFetching, setError} = handles;
   const goal = isFormValid(form, handles);
@@ -53,7 +53,7 @@ export const sendForm = (form, handles, history) => {
       setFetching(false);
       setSuccess(true);
       setTimeout(() => {
-        history.push('/dashboard');
+        navigation.navigate('dashboard');
       }, 3000);
     });
   } else {
