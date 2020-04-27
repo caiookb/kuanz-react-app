@@ -44,7 +44,6 @@ const isFormValid = (form, handles) => {
 };
 
 export const sendForm = (form, handles, history) => {
-  console.log('history no send form', history);
   const dispatch = StoreController.dispatch();
   const {setSuccess, setFetching, setError} = handles;
   const goal = isFormValid(form, handles);

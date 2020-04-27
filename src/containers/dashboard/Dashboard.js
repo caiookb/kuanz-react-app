@@ -84,7 +84,7 @@ class Dashboard extends Component {
     return (
       <View style={styles.container}>
         <View style={[styles.nav, styles.shadow]}>
-          <TouchableHighlight>
+          <TouchableHighlight onPress={() => this.logout()}>
             <Image source={profile} />
           </TouchableHighlight>
           <Monthpicker
