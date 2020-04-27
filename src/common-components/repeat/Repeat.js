@@ -10,14 +10,14 @@ const PeriodOptions = [
 ];
 
 const PeriodModal = props => {
-  const {enabled, handleState, period, handleModal} = props;
+  const {modal, setModal, setPeriod, period} = props;
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={enabled}
+      visible={modal}
       onRequestClose={() => {
-        handleState('togglePeriod', false);
+        setModal(false);
       }}>
       <View style={styles.bottomView}>
         <View style={styles.modalView}>
@@ -25,7 +25,10 @@ const PeriodModal = props => {
             return (
               <TouchableOpacity
                 style={styles.choice}
-                onPress={() => handleState('period', option.type)}>
+                onPress={() => {
+                  setPeriod(option.type);
+                  setModal(false);
+                }}>
                 <Text style={styles.choiceOption}>{option.title}</Text>
               </TouchableOpacity>
             );
@@ -33,7 +36,7 @@ const PeriodModal = props => {
           <TouchableOpacity
             style={[styles.choice, styles.cancel]}
             onPress={() => {
-              handleState('togglePeriod', false);
+              setModal(false);
             }}>
             <Text style={[styles.choiceOption]}>Voltar</Text>
           </TouchableOpacity>
@@ -44,7 +47,10 @@ const PeriodModal = props => {
 };
 
 const Repeat = props => {
-  const {period, repeatTimes, handleState, enabled} = props;
+  const {period, setPeriod, repeatTimes, setRepeatTimes} = props;
+
+  const [periodModal, togglePeriodModal] = useState(false);
+
   return (
     <View style={styles.repeat}>
       <View style={styles.row}>
@@ -55,14 +61,14 @@ const Repeat = props => {
           <View style={styles.options}>
             <TouchableOpacity
               onPress={() => {
-                handleState('subtract');
+                setRepeatTimes(repeatTimes > 2 ? repeatTimes - 1 : repeatTimes);
               }}>
               <Image source={subtract} />
             </TouchableOpacity>
             <Text style={styles.times}> {repeatTimes || '0'}</Text>
             <TouchableOpacity
               onPress={() => {
-                handleState('sum');
+                setRepeatTimes(repeatTimes + 1);
               }}>
               <Image source={add} />
             </TouchableOpacity>
@@ -76,7 +82,7 @@ const Repeat = props => {
             <Image source={repeatRound} />
             <TouchableOpacity
               onPress={() => {
-                handleState('togglePeriod', true);
+                togglePeriodModal(true);
               }}
               style={styles.periodInput}>
               <Text style={styles.periodText}>
@@ -90,11 +96,12 @@ const Repeat = props => {
           </View>
         </View>
       </View>
-      {enabled ? (
+      {periodModal ? (
         <PeriodModal
-          enabled={enabled}
-          handleState={handleState}
+          modal={periodModal}
+          setModal={togglePeriodModal}
           period={period}
+          setPeriod={setPeriod}
         />
       ) : null}
     </View>

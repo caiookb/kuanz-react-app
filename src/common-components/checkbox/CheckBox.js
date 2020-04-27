@@ -8,7 +8,8 @@ const CheckBox = props => {
   return (
     <View style={styles.toggle}>
       <Text style={styles.CheckBoxTitle}> {title} </Text>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity
+        onPress={() => (enable ? onPress(false) : onPress(true))}>
         <Image source={enable ? toggleOn : toggleOff} />
       </TouchableOpacity>
     </View>

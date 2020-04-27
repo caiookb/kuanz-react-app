@@ -58,7 +58,7 @@ const TagModal = props => {
               <TouchableOpacity
                 style={styles.modalList}
                 onPress={() => {
-                  handleState('type', tagName);
+                  handleState(tagName);
                   setModal(false);
                 }}>
                 <Image style={styles.modalTag} source={tag} />
