@@ -3,8 +3,11 @@ import {StoreController} from '../controllers';
 import {TagsActions} from '../redux/actions';
 
 export const createDefaultTags = token => {
+  console.log('TOKEN no create deafult', token);
   return Tags.createDefaultTags(token)
     .then(res => {
+      console.log('REs no create deafult', res);
+
       console.log('CRIOU AS DEFAULT TAG PORRA');
       return res;
     })
@@ -30,7 +33,8 @@ export const createTag = data => {
 };
 
 export const getAllTags = async dispatch => {
-  const token = StoreController.getUserToken();
+  const token = await StoreController.getUserToken();
+  console.log('TOKEN no getalltags', token);
   return Tags.getTags(token)
     .then(tags => {
       console.log('TAGGGGGGGGS', tags);

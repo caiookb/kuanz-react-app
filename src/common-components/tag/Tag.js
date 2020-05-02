@@ -8,11 +8,12 @@ import {
   ScrollView,
 } from 'react-native';
 import styles from './styles';
-import {tag, arrow, add} from '../../assets/images';
+import {other, arrow} from '../../assets/images';
 import {TextInput} from '../';
 import {CustomButton} from '../buttons/buttons';
 import {Colors} from '../../assets/colors';
 import {TagsController} from '../../libs/controllers';
+import {handleTagImage} from './strings';
 
 const Tag = props => {
   const {handleState, tagValue, tags} = props;
@@ -25,7 +26,10 @@ const Tag = props => {
       </Text>
       <View style={styles.touchable}>
         <View style={styles.touchableIcon}>
-          <Image source={tag} />
+          <Image
+            style={styles.tagImage}
+            source={handleTagImage(tagValue) || other}
+          />
         </View>
         <TouchableOpacity
           style={styles.touchableTextView}
@@ -61,7 +65,10 @@ const TagModal = props => {
                   handleState(tagName);
                   setModal(false);
                 }}>
-                <Image style={styles.modalTag} source={tag} />
+                <Image
+                  style={styles.modalTag}
+                  source={handleTagImage(tagName) || other}
+                />
                 <Text style={styles.modalText}>{tagName}</Text>
               </TouchableOpacity>
             );
@@ -80,7 +87,6 @@ const AddNewTag = props => {
     <TouchableOpacity
       style={styles.addNewView}
       onPress={() => triggerInput(true)}>
-      <Image style={{marginRight: 20}} source={add} />
       <Text style={styles.touchableText}>Nova marcação</Text>
     </TouchableOpacity>
   ) : (
@@ -93,10 +99,9 @@ const AddNewTag = props => {
           placeholder: '',
           onChangeText: text => setTagName(text),
         }}
-        typeOf={'value'}
       />
       <CustomButton
-        color={Colors.third}
+        color={Colors.fourth}
         onPress={() => {
           TagsController.createTag(tagName);
           triggerInput(false);

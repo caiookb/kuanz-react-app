@@ -10,7 +10,7 @@ export default StyleSheet.create({
   labelText: {
     fontWeight: '200',
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
   touchable: {
     flexDirection: 'row',
@@ -22,9 +22,14 @@ export default StyleSheet.create({
   touchableIcon: {
     marginRight: 10,
   },
+  tagImage: {
+    width: 40,
+    height: 40,
+  },
   touchableTextView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     flex: 1,
   },
   downArrow: {
@@ -34,11 +39,11 @@ export default StyleSheet.create({
   },
   touchableText: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.text,
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.9)',
   },
   modalView: {
@@ -50,36 +55,39 @@ export default StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 24,
-    borderRadius: 10,
     backgroundColor: Colors.primary,
     flexDirection: 'column',
-    maxHeight: 500,
+    maxHeight: 350,
     overflow: 'hidden',
   },
   modalList: {
     flexDirection: 'row',
     marginLeft: 15,
     width: '90%',
+    alignItems: 'center',
+    borderBottomColor: Colors.fifth,
+    borderBottomWidth: 0.2,
     backgroundColor: Colors.primary,
   },
   modalTag: {
-    marginTop: 15,
-    marginRight: 15,
+    marginVertical: 10,
   },
   modalText: {
     margin: 10,
-    color: 'white',
+    color: Colors.text,
     fontSize: 22,
+    marginLeft: 20,
   },
   addNewView: {
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: Colors.third,
-    paddingVertical: 10,
+    paddingVertical: 15,
+    height: 60,
   },
   inputView: {
-    marginTop: 10,
+    paddingTop: 20,
+    paddingBottom: 10,
+    backgroundColor: Colors.primary,
   },
 });
