@@ -8,7 +8,7 @@ export default StyleSheet.create({
   label: {
     fontWeight: '200',
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
   content: {
     width: '100%',
@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.text,
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
@@ -41,7 +41,7 @@ export default StyleSheet.create({
     elevation: 5,
   },
   itens: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.text,
     paddingBottom: 20,
   },
 });

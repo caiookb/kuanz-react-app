@@ -22,7 +22,7 @@ export default StyleSheet.create({
   changePasswordText: {
     textAlign: 'right',
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
   buttonsView: {
     marginBottom: 20,
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     height: 50,
   },
   errorText: {
-    color: 'white',
+    color: Colors.text,
     textAlign: 'center',
     paddingVertical: 10,
     fontSize: 20,

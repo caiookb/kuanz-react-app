@@ -2,6 +2,7 @@ export const Colors = {
   primary: '#001E2E',
   secondary: '#00A2FF',
   third: '#00314D',
+  text: '#FFF',
   spending: '#E74C3C',
   income: '#2ECC71',
   fourth: '#055A8A',

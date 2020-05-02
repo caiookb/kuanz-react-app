@@ -26,6 +26,7 @@ export const sendForm = (form, handles, navigation) => {
   const {setError, setFetching} = handles;
   const spending = isFormValid(form, handles);
 
+  console.log('Spending', spending);
   if (spending) {
     SpendingsController.createSpending(dispatch, spending).then(() => {
       setFetching(false);

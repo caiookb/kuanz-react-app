@@ -87,13 +87,13 @@ class SignUp extends Component {
     } = this.state;
     return (
       <View style={styles.page}>
-        {error ? (
-          <View style={styles.errorView}>
-            <Text style={styles.errorMessage}>{error}</Text>
-          </View>
-        ) : null}
-
         <ScrollView contentContainerStyle={styles.container}>
+          {error ? (
+            <View style={styles.errorView}>
+              <Text style={styles.errorMessage}>{error}</Text>
+            </View>
+          ) : null}
+
           {!fetching ? (
             <KeyboardAvoidingView
               enabled

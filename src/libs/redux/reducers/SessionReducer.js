@@ -1,7 +1,6 @@
 import {SessionTypes} from '../types';
 
 const initialState = {
-  user: null,
   metadata: null,
 };
 

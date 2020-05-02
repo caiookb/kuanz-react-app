@@ -4,7 +4,7 @@ import styles from './styles';
 
 const Loading = props => (
   <View style={styles.container}>
-    <Text>Loadinggggggggg</Text>
+    <Text>Kuanz</Text>
   </View>
 );
 

@@ -79,7 +79,7 @@ class Dashboard extends Component {
 
   render() {
     const {monthModal, date} = this.state;
-    const {incomesTotal, spendingsTotal, allIncomes, allSpendings} = this.props;
+    const {incomesTotal, spendingsTotal} = this.props;
 
     return (
       <View style={styles.container}>
@@ -121,6 +121,7 @@ const mapStateToProps = state => {
     incomes: {totalValue: incomesTotal},
     spendings: {totalValue: spendingsTotal},
   } = state;
+  console.log('state', state);
   return {
     incomes,
     incomesTotal,

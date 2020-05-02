@@ -19,12 +19,12 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    color: 'white',
+    color: Colors.text,
   },
   desc: {
     fontSize: 18,
     marginTop: 20,
-    color: 'white',
+    color: Colors.text,
   },
 
   card: {
@@ -37,19 +37,19 @@ export default StyleSheet.create({
   },
   inputTitle: {
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
   input: {
     borderBottomWidth: 0.5,
-    borderBottomColor: 'white',
-    color: 'white',
+    borderBottomColor: Colors.text,
+    color: Colors.text,
     padding: 0,
     marginTop: 45,
     fontSize: 18,
   },
   inputTitle: {
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
 
   cardContent: {
