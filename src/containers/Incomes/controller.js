@@ -1,6 +1,6 @@
 import {IncomesController, StoreController} from '../../libs/controllers';
-
-const isFormValid = (form, handles) => {
+import moment from 'moment';
+const isFormValid = (form, handles, installmentType) => {
   const {
     name,
     value,
@@ -10,6 +10,8 @@ const isFormValid = (form, handles) => {
     repeat,
     repeatTimes,
     period,
+    income_id,
+    installmentId,
   } = form;
   const {setError, setFetching} = handles;
 
@@ -23,7 +25,10 @@ const isFormValid = (form, handles) => {
       value: handleValue(value),
       type,
       received,
-      receiveDate,
+      receiveDate: moment(receiveDate).add('hours', 12),
+      installmentType,
+      installmentId,
+      income_id,
     };
     const incomeRepeat = {...income, repeat: repeatTimes, period};
     return repeat ? incomeRepeat : income;
@@ -31,7 +36,6 @@ const isFormValid = (form, handles) => {
 };
 
 const handleValue = value => {
-  console.log('value', value);
   const cleanValue = value
     .split('.')
     .join('')
@@ -39,16 +43,33 @@ const handleValue = value => {
   return parseFloat(cleanValue && cleanValue.replace('R$', ''));
 };
 
-export const sendForm = (form, handles, navigation) => {
+export const sendForm = (
+  form,
+  handles,
+  navigation,
+  editing,
+  installmentType,
+  deleting,
+) => {
   const dispatch = StoreController.dispatch();
   const {setError, setFetching} = handles;
-  const income = isFormValid(form, handles);
+  const income = isFormValid(form, handles, installmentType);
   console.log('INCOME', income);
-  if (income) {
+  if (income && deleting) {
+    console.log('deleting');
+    IncomesController.deleteIncome(dispatch, income).then(() => {
+      setFetching(false);
+      navigation.goBack();
+    });
+  } else if (income && editing) {
+    IncomesController.uptadeIncome(dispatch, income).then(() => {
+      setFetching(false);
+      navigation.goBack();
+    });
+  } else if (income) {
     IncomesController.createIncome(dispatch, income).then(() => {
       setFetching(false);
       navigation.goBack();
-      //Navigate back to dashboard
     });
   }
 };

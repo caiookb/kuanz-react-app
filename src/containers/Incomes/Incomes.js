@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {configLocalCalendar} from '../../common-components/calendar/Calendar';
-import {View, KeyboardAvoidingView} from 'react-native';
+import {View, KeyboardAvoidingView, Alert, Text} from 'react-native';
 import {IncomesController, TagsController} from '../../libs/controllers';
 import {
   CustomButton,
@@ -13,6 +13,7 @@ import {
   Datepicker,
   Repeat,
   Tag,
+  Calculator,
 } from '../../common-components';
 import {Colors} from '../../assets/colors';
 import {sendForm} from './controller';
@@ -21,20 +22,24 @@ import moment from 'moment';
 configLocalCalendar();
 
 const Incomes = props => {
-  const {fetchTags} = props;
-  const {tag, navigation} = props;
-  const [name, setName] = useState('');
-  const [value, setValue] = useState(0);
-  const [type, setType] = useState('Alimentação');
-  const [received, setReceived] = useState(false);
-  const [receiveDate, setReceivedDate] = useState(
-    moment().format('YYYY-MM-DD'),
-  );
+  const {tag, navigation, route} = props;
+  const editing = route && route.params && route.params.editing;
+  const each = route && route.params && route.params.each;
+
+  const [name, setName] = useState(editing ? each.name : '');
+  const [value, setValue] = useState(editing ? each.value : 0);
+  const [historic, setHistoric] = useState(editing ? each.value : 0);
+  const [type, setType] = useState(editing ? each.type : 'Alimentação');
+  const [received, setReceived] = useState(editing ? each.received : false);
   const [repeat, setRepeat] = useState(false);
   const [repeatTimes, setRepeatTimes] = useState(2);
   const [period, setPeriod] = useState('Mensal');
+  const [installmentType, setInstallmentType] = useState('');
   const [error, setError] = useState('');
   const [fetching, setFetching] = useState(false);
+  const [receiveDate, setReceivedDate] = useState(
+    editing ? each.receiveDate : moment().format('YYYY-MM-DD'),
+  );
 
   useEffect(() => {
     const {fetchTags} = props;
@@ -51,12 +56,56 @@ const Incomes = props => {
     repeatTimes,
     period,
   };
+
+  const editingForm = {
+    ...form,
+    income_id: each._id,
+    installmentId: each?.installmentId,
+  };
+
+  const alertButtons = (editing, type) => {
+    console.log(type);
+    Alert.alert(
+      type
+        ? 'Como deseja apagar a transação?'
+        : 'Como deseja alterar a transação?',
+      type
+        ? 'Escolha alguma maneira para deletar'
+        : 'Escolha alguma maneira para alterar',
+      [
+        {
+          text: 'Atual',
+          onPress: () =>
+            sendForm(editingForm, handles, navigation, editing, 'ACTUAL', type),
+        },
+        {
+          text: 'Atual e próximas',
+          onPress: () =>
+            sendForm(
+              editingForm,
+              handles,
+              navigation,
+              editing,
+              'ACTUAL_AND_NEXTS',
+              type,
+            ),
+        },
+        {
+          text: 'Todas',
+          onPress: () =>
+            sendForm(editingForm, handles, navigation, editing, 'EVERY', type),
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
   const handles = {setError, setFetching};
 
   return (
     <View style={styles.container}>
       <UpperNav
-        title={'Adicionar uma nova receita'}
+        title={editing ? 'Atualizar a receita' : 'Adicionar uma nova receita'}
         color={Colors.income}
         onPress={() => {
           navigation.goBack();
@@ -69,15 +118,12 @@ const Incomes = props => {
         style={styles.content}
         keyboardShouldPersistTaps="handled">
         <View style={styles.inputView}>
-          <TextInput
+          <Calculator
+            status={editing}
             value={value}
-            type={'money'}
-            label={'Valor da receita'}
-            maskInputProps={{
-              placeholder: '',
-              onChangeText: text => setValue(text),
-            }}
-            typeOf={'value'}
+            setValue={setValue}
+            historic={historic}
+            setHistoric={setHistoric}
           />
         </View>
         <View style={styles.inputView}>
@@ -97,15 +143,22 @@ const Incomes = props => {
         <View style={styles.inputView}>
           <Tag handleState={setType} tagValue={type} tags={tag} />
         </View>
-        <View style={styles.doubleView}>
+        <View style={editing ? styles.inputView : styles.doubleView}>
           <Datepicker day={receiveDate} setDay={setReceivedDate} />
-          <CheckBox
-            enable={received}
-            onPress={setReceived}
-            title={'Recebido'}
-          />
-          <CheckBox enable={repeat} onPress={setRepeat} title={'Repetir'} />
+
+          {editing ? null : (
+            <React.Fragment>
+              <CheckBox
+                enable={received}
+                onPress={setReceived}
+                title={'Recebido'}
+              />
+              <CheckBox enable={repeat} onPress={setRepeat} title={'Repetir'} />
+            </React.Fragment>
+          )}
         </View>
+
+        <View style={styles.inputView} />
         {repeat ? (
           <View style={styles.inputView}>
             <Repeat
@@ -122,11 +175,25 @@ const Incomes = props => {
           <Spinner />
         </View>
       ) : null}
+
+      {editing ? (
+        <CustomButton
+          title={'Apagar receita'}
+          color={Colors.spending}
+          onPress={() => {
+            alertButtons(false, true);
+          }}
+          type={'single'}
+        />
+      ) : null}
+
       <CustomButton
-        title={'Adicionar receita'}
+        title={editing ? 'Atualizar receita' : 'Adicionar receita'}
         color={Colors.income}
         onPress={() => {
-          sendForm(form, handles, navigation);
+          editing
+            ? alertButtons(editing, false)
+            : sendForm(form, handles, navigation, editing);
         }}
         type={'single'}
       />
@@ -140,7 +207,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  createIncome: data => IncomesController.createIncome(dispatch, data),
   fetchTags: () => TagsController.getAllTags(dispatch),
 });
 

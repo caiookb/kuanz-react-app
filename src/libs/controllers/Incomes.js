@@ -17,6 +17,38 @@ export const createIncome = (dispatch, data) => {
     });
 };
 
+export const uptadeIncome = (dispatch, data) => {
+  const date = StoreController.date();
+  const token = StoreController.getUserToken();
+  return Incomes.uptadeIncome(data, token, date.firstDate, date.lastDate)
+    .then(res => {
+      const {allIncomes, totalValue} = res;
+      const incomesObject = {allIncomes, totalValue};
+      saveIncomesOnRedux(dispatch, incomesObject);
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
+export const deleteIncome = (dispatch, data) => {
+  const date = StoreController.date();
+  const token = StoreController.getUserToken();
+  return Incomes.deleteIncome(data, token, date.firstDate, date.lastDate)
+    .then(res => {
+      console.log('ressssssssssssss', res);
+
+      const {allIncomes, totalValue} = res;
+      const incomesObject = {allIncomes, totalValue};
+      saveIncomesOnRedux(dispatch, incomesObject);
+      return res;
+    })
+    .catch(err => {
+      return err;
+    });
+};
+
 export const fetchAllIncomes = async (dispatch, tokinho) => {
   const date = StoreController.date();
   const token = StoreController.getUserToken();
