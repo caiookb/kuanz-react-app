@@ -12,10 +12,13 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     marginTop: 80,
-    width: '90%',
+    width: '100%',
   },
   inputView: {
+    width: '100%',
     marginBottom: 15,
+    alignSelf: 'center',
+    alignContent: 'center',
   },
   doubleView: {
     marginBottom: 15,
@@ -23,6 +26,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'space-between',
-    width: '90%',
+    width: '95%',
   },
 });

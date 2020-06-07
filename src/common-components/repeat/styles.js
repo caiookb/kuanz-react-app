@@ -16,7 +16,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleText: {
-    color: 'white',
+    color: Colors.text,
     fontSize: 18,
   },
   title: {
@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   times: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.text,
   },
   inputs: {
     flex: 0.48,
@@ -41,7 +41,7 @@ export default StyleSheet.create({
   },
   periodText: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.text,
   },
   bottomView: {
     flex: 1,
@@ -83,7 +83,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   choiceOption: {
-    color: 'white',
+    color: Colors.text,
     fontSize: 22,
     textAlign: 'center',
   },

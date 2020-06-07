@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '../../assets/colors';
 
 export default StyleSheet.create({
   toggle: {
@@ -9,6 +10,6 @@ export default StyleSheet.create({
   },
   CheckBoxTitle: {
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
 });

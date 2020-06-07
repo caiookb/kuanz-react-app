@@ -17,3 +17,21 @@ export const getAllIncomes = (firstDate, lastDate, token) => {
     auth: token,
   });
 };
+
+export const uptadeIncome = (body, token, firstDate, lastDate) => {
+  return fetchServer({
+    method: 'PUT',
+    path: ['incomes', `update?firstDate=${firstDate}&lastDate=${lastDate}`],
+    body,
+    auth: token,
+  });
+};
+
+export const deleteIncome = (body, token, firstDate, lastDate) => {
+  return fetchServer({
+    method: 'DELETE',
+    path: ['incomes', `delete?firstDate=${firstDate}&lastDate=${lastDate}`],
+    body,
+    auth: token,
+  });
+};

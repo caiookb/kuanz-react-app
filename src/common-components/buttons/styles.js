@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-
+import {Colors} from '../../assets/colors';
 export default StyleSheet.create({
   button: {
     width: '100%',
@@ -21,7 +21,7 @@ export default StyleSheet.create({
     fontWeight: '200',
     textAlign: 'center',
     fontSize: 20,
-    color: 'white',
+    color: Colors.text,
     marginTop: 10,
   },
   IconButton: {
@@ -39,7 +39,7 @@ export default StyleSheet.create({
     transform: [{rotate: '1804deg'}],
   },
   IconButtonText: {
-    color: 'white',
+    color: Colors.text,
     fontSize: 18,
     marginBottom: 4,
     textAlignVertical: 'center',

@@ -19,8 +19,7 @@ class AppContainer extends Component {
         location: {pathname: path},
       },
     } = this.props;
-    console.log('path', path);
-    console.log('route', route);
+
     return path !== route ? history.push(route) : () => {};
   };
 

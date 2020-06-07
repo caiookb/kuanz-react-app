@@ -2,15 +2,20 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors';
 
 export default StyleSheet.create({
-  card: {
-    width: '95%',
-    flexDirection: 'row',
+  view: {
+    width: '98%',
     alignSelf: 'center',
-    justifyContent: 'flex-start',
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.fifth,
-    alignItems: 'center',
-    paddingVertical: 12,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  day: {
+    // backgroundColor: 'red',
+    paddingVertical: 3,
+  },
+  card: {
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: 10,
   },
   image: {
     marginLeft: 10,
@@ -18,15 +23,19 @@ export default StyleSheet.create({
   },
   textAndDate: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   text: {
-    color: 'white',
-    fontSize: 20,
+    color: Colors.text,
+    fontSize: 18,
     fontWeight: '100',
   },
   dateText: {
-    fontSize: 18,
+    fontSize: 16,
+  },
+  statusText: {
+    fontSize: 16,
+    textAlign: 'right',
   },
   valueView: {
     flexDirection: 'column',
@@ -35,5 +44,9 @@ export default StyleSheet.create({
   },
   value: {
     fontSize: 18,
+    textAlign: 'right',
+  },
+  paidAndStatus: {
+    flexDirection: 'row',
   },
 });

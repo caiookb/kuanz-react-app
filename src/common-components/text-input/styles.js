@@ -19,6 +19,6 @@ export default StyleSheet.create({
   labelText: {
     fontWeight: '200',
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
 });

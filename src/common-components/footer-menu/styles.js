@@ -55,7 +55,7 @@ export default StyleSheet.create({
   },
   balanceStatsTitle: {
     textAlign: 'center',
-    color: 'white',
+    color: Colors.text,
     fontSize: 16,
   },
   balanceStatsValue: {

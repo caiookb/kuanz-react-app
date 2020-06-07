@@ -4,7 +4,7 @@ import styles from './styles';
 import {add, subtract, repeatRound} from '../../assets/images';
 
 const PeriodOptions = [
-  {type: 'week', title: 'Semanal'},
+  {type: 'weeks', title: 'Semanal'},
   {type: 'month', title: 'Mensal'},
   {type: 'year', title: 'Anual'},
 ];

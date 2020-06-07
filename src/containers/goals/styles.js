@@ -11,7 +11,7 @@ export default StyleSheet.create({
 
   textTitle: {
     marginTop: 30,
-    color: 'white',
+    color: Colors.text,
     fontSize: 18,
     textAlign: 'center',
     paddingHorizontal: 20,
@@ -41,7 +41,7 @@ export default StyleSheet.create({
     borderRadius: 250,
   },
   successText: {
-    color: 'white',
+    color: Colors.text,
     textAlign: 'center',
     fontSize: 20,
   },

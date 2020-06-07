@@ -72,6 +72,6 @@ export default StyleSheet.create({
   cardText: {
     textAlign: 'center',
     fontSize: 18,
-    color: 'white',
+    color: Colors.text,
   },
 });

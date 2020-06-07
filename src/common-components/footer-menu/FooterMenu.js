@@ -22,10 +22,10 @@ const dot = title => {
 
 const color = title => {
   return title === 'Despesas'
-    ? Colors.spending
+    ? Colors.textSpending
     : title === 'Receita'
-    ? Colors.income
-    : Colors.secondary;
+    ? Colors.textIncome
+    : Colors.blue2;
 };
 
 const handleValue = title => {};

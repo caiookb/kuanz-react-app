@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
   errorMessage: {
     textAlign: 'center',
-    color: 'white',
+    color: Colors.text,
     fontSize: 20,
     alignSelf: 'center',
     paddingTop: 5,

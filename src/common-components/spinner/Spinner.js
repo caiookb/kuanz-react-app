@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
+import {Colors} from '../../assets/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: {
-    color: 'white',
+    color: Colors.text,
     fontSize: 20,
     marginTop: 20,
   },

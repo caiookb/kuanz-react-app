@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-
+import {Colors} from '../../assets/colors';
 export default StyleSheet.create({
   nav: {
     width: '100%',
@@ -14,7 +14,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.text,
     paddingTop: 1,
     fontWeight: '200',
   },

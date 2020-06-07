@@ -9,6 +9,10 @@ const handleDate = date => {
   return moment(date).format('DD/MM');
 };
 
+const handleDay = date => {
+  return moment(date).format('dddd');
+};
+
 const handleImage = type => {
   switch (type) {
     case 'Lazer':
@@ -22,27 +26,52 @@ const handleImage = type => {
   }
 };
 
+const handlePaidOrReceived = helper => {
+  const {type, value} = helper;
+  switch (type) {
+    case 'paid':
+      return value ? 'Pago' : 'Não pago';
+    case 'received':
+      return value ? 'Recebido' : 'Não recebido';
+  }
+};
+
 const Cards = props => {
   const {transaction, onPress, title} = props;
+  const paidOrReceivedHelper = {
+    value: transaction.paid || transaction.received,
+    type: transaction.paid ? 'paid' : 'received',
+  };
   return (
-    <View style={styles.card}>
-      <Image style={styles.image} source={handleImage(transaction.type)} />
-      <View style={styles.textAndDate}>
-        <Text style={styles.text}>{transaction.name}</Text>
-        <Text style={[styles.text, styles.dateText]}>
-          {handleDate(transaction.paidDate || transaction.receiveDate)}
-        </Text>
+    <TouchableOpacity onPress={onPress} style={styles.view}>
+      <View style={styles.card}>
+        <Image style={styles.image} source={handleImage(transaction.type)} />
+        <View style={styles.textAndDate}>
+          <Text style={styles.text}>{transaction.name}</Text>
+          <View style={styles.paidAndStatus}>
+            <Text style={[styles.text, styles.dateText]}>
+              {handlePaidOrReceived(paidOrReceivedHelper)}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.valueView}>
+          <Text
+            style={[
+              styles.value,
+              {
+                color: transaction.receiveDate
+                  ? Colors.textIncome
+                  : Colors.textSpending,
+              },
+            ]}>
+            R${parseFloat(transaction.value).toFixed(2)}
+          </Text>
+          <Text style={[styles.text, styles.statusText]}>
+            {handlePaidOrReceived(paidOrReceivedHelper)}
+          </Text>
+        </View>
       </View>
-      <View style={styles.valueView}>
-        <Text
-          style={[
-            styles.value,
-            {color: transaction.receiveDate ? Colors.income : Colors.spending},
-          ]}>
-          R${parseFloat(transaction.value).toFixed(2)}
-        </Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -10,16 +10,17 @@ const serverErr = res => {
 };
 
 const domain = {
-  LOCAL: 'https://guarded-peak-67914.herokuapp.com/',
+  DEV: 'https://guarded-peak-67914.herokuapp.com/',
+  LOCAL: 'http://192.168.42.115:5000/',
 };
 
-const urlPrefix = domain.LOCAL;
+const urlPrefix = domain.DEV;
 
 const url = path => {
   return urlPrefix.concat(path.join('/'));
 };
 
-export default async config => {
+export default config => {
   const {method, path, body, auth} = config;
   const opt = {
     headers: {
