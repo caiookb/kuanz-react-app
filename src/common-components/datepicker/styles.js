@@ -4,6 +4,7 @@ export default StyleSheet.create({
   datepicker: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    marginHorizontal: 20,
   },
   label: {
     fontWeight: '200',

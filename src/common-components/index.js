@@ -1,6 +1,7 @@
 import {CustomButton, IconButton} from './buttons/buttons';
 import {CalendarModal} from './modal/DialogModal';
 import Cards from './cards/Cards';
+import Calculator from './calculator/Calculator';
 import TextInput from './text-input/TextInput';
 import CalendarComponent from './calendar/Calendar';
 import Datepicker from './datepicker/Datepicker';
@@ -15,6 +16,7 @@ import {UpperNav} from './navs/Navs';
 export {
   CalendarComponent,
   CalendarModal,
+  Calculator,
   Cards,
   CheckBox,
   CustomButton,

@@ -9,6 +9,7 @@ import {
   Datepicker,
   Repeat,
   Tag,
+  Calculator,
 } from '../../common-components';
 import {configLocalCalendar} from '../../common-components/calendar/Calendar';
 import {Colors} from '../../assets/colors';
@@ -22,6 +23,7 @@ const SpendingComponent = props => {
   const {tag, navigation} = props;
 
   const [name, setName] = useState(undefined);
+  const [historic, setHistoric] = useState('0');
   const [value, setValue] = useState(0);
   const [type, setType] = useState(undefined);
   const [paid, setPaid] = useState(undefined);
@@ -51,16 +53,14 @@ const SpendingComponent = props => {
         style={styles.content}
         keyboardShouldPersistTaps="handled">
         <View style={styles.inputView}>
-          <TextInput
-            value={value}
-            type={'money'}
-            label={'Valor da despesa'}
-            maskInputProps={{
-              placeholder: '',
-              onChangeText: text => setValue(text),
-            }}
-            typeOf={'value'}
-          />
+          <View style={styles.inputView}>
+            <Calculator
+              value={value}
+              setValue={setValue}
+              historic={historic}
+              setHistoric={setHistoric}
+            />
+          </View>
         </View>
         <View style={styles.inputView}>
           <TextInput

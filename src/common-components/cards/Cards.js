@@ -43,7 +43,7 @@ const Cards = props => {
     type: transaction.paid ? 'paid' : 'received',
   };
   return (
-    <TouchableOpacity style={styles.view}>
+    <TouchableOpacity onPress={onPress} style={styles.view}>
       <View style={styles.card}>
         <Image style={styles.image} source={handleImage(transaction.type)} />
         <View style={styles.textAndDate}>
@@ -60,8 +60,8 @@ const Cards = props => {
               styles.value,
               {
                 color: transaction.receiveDate
-                  ? Colors.income
-                  : Colors.spending,
+                  ? Colors.textIncome
+                  : Colors.textSpending,
               },
             ]}>
             R${parseFloat(transaction.value).toFixed(2)}

@@ -15,14 +15,12 @@ const handleTransactions = transactions => {
   });
 
   const uniqueDates = [...new Set(dates)];
-
   const dateToTransactions = uniqueDates.map(date => {
     let sameDate = transactions.filter(
       x => x.receiveDate === date || x.paidDate == date,
     );
     return {[date]: sameDate};
   });
-
   return dateToTransactions;
 };
 
@@ -33,7 +31,7 @@ const handleDayName = date => {
 };
 
 const Transactions = props => {
-  const {transactions} = props;
+  const {transactions, navigation} = props;
 
   return (
     <ScrollView contentContainerStyle={styles.cards}>
@@ -48,7 +46,17 @@ const Transactions = props => {
                 </View>
                 {Object.values(item).map(transaction => {
                   return transaction.map(each => {
-                    return <Cards transaction={each} />;
+                    return (
+                      <Cards
+                        transaction={each}
+                        onPress={() =>
+                          navigation.navigate(
+                            each.paidDate ? 'spendings' : 'incomes',
+                            {editing: true, each},
+                          )
+                        }
+                      />
+                    );
                   });
                 })}
               </React.Fragment>
