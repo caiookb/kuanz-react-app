@@ -14,7 +14,7 @@
     "@react-navigation/native": "^5.1.7",
     "@react-navigation/stack": "^5.2.14",
     "mathjs": "^7.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-calendars": "1.259.0",
